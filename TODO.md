@@ -4,6 +4,10 @@
 - todo extension
 - dns rotation for chrome
 - ip-black-mannual
+# Ask AI
+- ai: browser hijacking > mitb
+- Windows telemetry, tracking/telemetry
+- malwarebytes
 
 # analysis
 - repo-analysis
@@ -13,10 +17,6 @@
   - white-exclude + black-mannual
 - 02-13 dns cache
 
-# Ask AI
-- ai: browser hijacking > mitb
-- Windows telemetry
-- malwarebytes
 
 # script
 - check dns-cache before adding to whitelist

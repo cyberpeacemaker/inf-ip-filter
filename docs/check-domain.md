@@ -6,6 +6,7 @@
     - browser.events.data.msn.com: uploading data. telemetry and analytics endpoint used primarily by Microsoft Edge and the Windows shell.    
 - Google
     - googleads.g.doubleclick.net: Ad Personalization, It uses cookies to remember; Click Redirects: routed through this domain so Google can log. Can be used by malicious actors for **malvertising**** 
+    - - www.googletagmanager.com: web analytics and marketing tags.
 - sb.scprecardresearch.com: digital tracking and market research
 - clientstream.launchdarkly.com: identifies your session as a "Context" (e.g., "User #54321 on Chrome") to decide which features to show you.
 
@@ -19,6 +20,8 @@
     - go.trouter.skype.com: real-time communication and signaling.
     - config.edge.skype.com: Chat and Call in Edge
     - ntp.msn.com: New Tab Page images and layout
+- Google    
+    - play.google.com: Google Play Games on PC service running in the background.
 
 # low-risk
 - Microsoft
