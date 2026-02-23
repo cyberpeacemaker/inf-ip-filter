@@ -1,0 +1,13 @@
+Entry,RecordType,Data,TimeToLive
+signaler-pa.clients6.google.com,1,142.250.196.202,136
+pypi.org,1,151.101.128.223,30395
+pypi.org,1,151.101.192.223,30395
+pypi.org,1,151.101.0.223,30395
+pypi.org,1,151.101.64.223,30395
+chrome.cloudflare-dns.com,1,172.64.41.3,20
+chrome.cloudflare-dns.com,1,162.159.61.3,20
+www.msftconnecttest.com,5,ncsi-geo.trafficmanager.net,4
+www.msftconnecttest.com,5,www.msftncsi.com.edgesuite.net,4
+www.msftconnecttest.com,5,a1961.g2.akamai.net,4
+www.msftconnecttest.com,1,203.69.81.58,4
+www.msftconnecttest.com,1,203.69.81.51,4

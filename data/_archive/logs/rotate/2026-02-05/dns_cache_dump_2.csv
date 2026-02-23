@@ -1,0 +1,15 @@
+Entry,RecordType,Data,TimeToLive
+main.vscode-cdn.net,5,vscode-cdn.z01.azurefd.net,3
+main.vscode-cdn.net,5,mr-z01.tm-azurefd.net,3
+main.vscode-cdn.net,5,shed.dual-low.part-0045.t-0009.t-msedge.net,3
+main.vscode-cdn.net,5,part-0045.t-0009.t-msedge.net,3
+main.vscode-cdn.net,1,13.107.213.73,3
+main.vscode-cdn.net,1,13.107.246.73,3
+signaler-pa.clients6.google.com,1,142.250.196.202,219
+www.google.com,1,142.250.77.4,18
+pypi.org,1,151.101.128.223,30478
+pypi.org,1,151.101.192.223,30478
+pypi.org,1,151.101.0.223,30478
+pypi.org,1,151.101.64.223,30478
+chrome.cloudflare-dns.com,1,172.64.41.3,103
+chrome.cloudflare-dns.com,1,162.159.61.3,103

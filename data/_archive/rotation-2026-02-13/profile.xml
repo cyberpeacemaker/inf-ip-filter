@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root version="5" type="3" timestamp="1770798095">
+    <apps>
+        <item path="CryptSvc" timestamp="1770197885" is_undeletable="true" />
+        <item path="Dhcp" timestamp="1770197871" is_undeletable="true" />
+        <item path="Dnscache" timestamp="1770197885" is_undeletable="true" />
+        <item path="DoSvc" timestamp="1770198842" is_undeletable="true" />
+        <item path="NlaSvc" timestamp="1770197871" is_undeletable="true" />
+        <item path="Spooler" timestamp="1770197871" is_undeletable="true" />
+        <item path="UsoSvc" timestamp="1770197871" is_undeletable="true" />
+        <item path="wlidsvc" timestamp="1770198842" is_undeletable="true" />
+        <item path="wuauserv" timestamp="1770198842" is_undeletable="true" />
+        <item path="C:\users\sinceremony\appdata\local\line\bin\current\line.exe" timestamp="1770797770" />
+        <item path="C:\WINDOWS\system32\SppExtComObj.exe" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\WINDOWS\system32\lsass.exe" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\Program Files\simplewall\simplewall.exe" timestamp="1770202993" is_undeletable="true" is_enabled="true" />
+        <item path="System" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\WINDOWS\system32\svchost.exe" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\windows\system32\slui.exe" timestamp="1770216773" />
+        <item path="C:\windows\system32\appidcertstorecheck.exe" timestamp="1770216779" />
+        <item path="C:\windows\systemapps\microsoft.windows.startmenuexperiencehost_cw5n1h2txyewy\startmenuexperiencehost.exe" timestamp="1770216866" />
+        <item path="C:\users\sinceremony\appdata\local\microsoft\onedrive\onedrivestandaloneupdater.exe" timestamp="1770216952" />
+        <item path="C:\program files (x86)\microsoft\edge\application\msedge.exe" timestamp="1770216967" />
+        <item path="C:\users\sinceremony\appdata\local\programs\microsoft vs code\code.exe" timestamp="1770216985" />
+        <item path="C:\windows\system32\wermgr.exe" timestamp="1770217133" />
+        <item path="C:\program files\windowsapps\microsoftwindows.client.webexperience_525.18101.90.9_x64__cw5n1h2txyewy\dashboard\widgets.exe" timestamp="1770217133" />
+        <item path="C:\windows\system32\driverstore\filerepository\hpcustomcapcomp.inf_amd64_383a15da209a6794\x64\bridgecommunication.exe" timestamp="1770217141" />
+        <item path="C:\windows\immersivecontrolpanel\systemsettings.exe" timestamp="1770217597" />
+        <item path="C:\program files (x86)\microsoft\edgewebview\application\144.0.3719.93\msedgewebview2.exe" timestamp="1770104786" />
+        <item path="C:\program files (x86)\microsoft\edgeupdate\microsoftedgeupdate.exe" timestamp="1770105225" />
+        <item path="C:\windows\system32\taskhostw.exe" timestamp="1770108424" />
+        <item path="C:\windows\explorer.exe" timestamp="1770109467" />
+        <item path="C:\windows\system32\driverstore\filerepository\hpcustomcapcomp.inf_amd64_383a15da209a6794\x64\apphelpercap.exe" timestamp="1770111168" />
+        <item path="C:\windows\system32\driverstore\filerepository\hpcustomcapcomp.inf_amd64_383a15da209a6794\x64\sysinfocap.exe" timestamp="1770111168" />
+        <item path="C:\windows\system32\compattelrunner.exe" timestamp="1770111226" />
+        <item path="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\githubdesktop.exe" timestamp="1770113466" />
+        <item path="C:\users\sinceremony\appdata\local\githubdesktop\update.exe" timestamp="1770113467" />
+        <item path="C:\users\sinceremony\appdata\local\microsoft\onedrive\onedrive.exe" timestamp="1770185212" />
+        <item path="C:\windows\system32\rundll32.exe" timestamp="1770185341" />
+        <item path="C:\users\sinceremony\downloads\autoruns.exe" timestamp="1770185478" />
+        <item path="C:\windows\systemapps\microsoftwindows.client.cbs_cw5n1h2txyewy\textinputhost.exe" timestamp="1770186023" />
+        <item path="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\resources\app\git\mingw64\bin\git-remote-https.exe" timestamp="1770187479" />
+        <item path="C:\windows\system32\nslookup.exe" timestamp="1770189413" />
+        <item path="C:\windows\system32\apphostregistrationverifier.exe" timestamp="1770192486" />
+        <item path="C:\windows\system32\sihclient.exe" timestamp="1770194320" />
+        <item path="C:\windows\system32\msiexec.exe" timestamp="1770274923" />
+        <item path="C:\program files\windowsapps\microsoft.desktopappinstaller_1.26.509.0_x64__8wekyb3d8bbwe\appinstallerpythonredirector.exe" timestamp="1770274974" />
+        <item path="C:\program files\windows defender\mpcmdrun.exe" timestamp="1770275218" />
+        <item path="C:\program files\windowsapps\microsoft.desktopappinstaller_1.26.509.0_x64__8wekyb3d8bbwe\winget.exe" timestamp="1770797857" />
+    </apps>
+    <rules_custom>
+        <item name="TCP443" rule="443" protocol="6" apps="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\githubdesktop.exe|C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\resources\app\git\mingw64\bin\git-remote-https.exe|C:\users\sinceremony\appdata\local\line\bin\current\line.exe" is_enabled="true" />
+        <item name="DoH-svc" rule="9.9.9.9:443;1.1.1.1:443" protocol="6" apps="C:\WINDOWS\system32\svchost.exe" is_enabled="true" />
+        <item name="white_1" rule="104.16.105.80;104.16.106.80;104.16.174.226;104.16.175.226;104.16.79.73;104.16.80.73;104.17.24.14;104.17.25.14" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_2" rule="104.17.31.174;104.17.95.195;104.17.96.195;104.17.97.195;104.17.98.195;104.17.99.195;104.18.10.207;104.18.11.207" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_3" rule="104.18.128.216;104.18.18.62;104.18.19.62;104.18.20.226;104.18.21.226;104.18.22.222;104.18.23.222;104.18.33.8" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_4" rule="104.18.38.233;104.18.39.246;104.18.8.180;104.18.9.180;104.19.189.84;104.19.190.84;104.20.23.25;104.21.27.152" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_5" rule="104.21.52.147;104.26.2.143;104.26.3.143;104.26.8.44;104.26.9.44;109.61.38.38;122.146.41.56;122.146.41.69" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_6" rule="13.107.213.59;13.107.213.73;13.107.246.59;13.107.5.93;13.107.6.156;13.107.6.158;13.35.202.104;13.35.202.19" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_7" rule="13.35.202.28;13.35.202.54;13.69.109.131;140.114.69.135;140.82.112.25;140.82.113.26;140.82.114.22;142.250.157.84" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_8" rule="142.250.196.193;142.250.196.195;142.250.196.197;142.250.196.202;142.250.196.206;142.250.198.65;142.250.198.66;142.250.198.67" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_9" rule="142.250.198.72;142.250.198.74;142.250.198.78;142.250.204.35;142.250.204.40;142.250.204.42;142.250.204.46;142.250.4.100" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_10" rule="142.250.4.101;142.250.4.102;142.250.4.113;142.250.4.132;142.250.4.138;142.250.4.139;142.250.4.17;142.250.4.18" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_11" rule="142.250.4.19;142.250.4.83;142.250.4.94;142.250.4.95;142.250.66.67;142.250.66.74;142.250.66.78;142.250.77.1" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_12" rule="142.250.77.10;142.250.77.14;142.250.77.3;142.251.10.100;142.251.10.101;142.251.10.102;142.251.10.103;142.251.10.104" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_13" rule="142.251.10.105;142.251.10.106;142.251.10.113;142.251.10.132;142.251.10.138;142.251.10.139;142.251.10.147;142.251.10.95" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_14" rule="142.251.10.99;142.251.12.132;142.251.12.17;142.251.12.18;142.251.12.19;142.251.12.83;142.251.12.94;142.251.12.95" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_15" rule="142.251.12.97;142.251.150.119;142.251.151.119;142.251.152.119;142.251.153.119;142.251.154.119;142.251.155.119;142.251.156.119" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_16" rule="142.251.157.119;147.92.146.114;147.92.146.129;147.92.146.138;147.92.165.194;147.92.165.206;147.92.165.67;147.92.165.68" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_17" rule="147.92.185.1;147.92.185.2;147.92.191.21;147.92.191.86;147.92.242.232;147.92.249.185;151.101.130.137;151.101.194.137" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_18" rule="151.101.2.137;151.101.66.137;157.240.15.13;157.240.15.35;162.159.128.232;162.159.128.233;162.159.129.232;162.159.129.233" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_19" rule="162.159.130.232;162.159.130.233;162.159.130.234;162.159.133.232;162.159.133.233;162.159.133.234;162.159.134.232;162.159.134.233" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_20" rule="162.159.134.234;162.159.135.232;162.159.135.233;162.159.135.234;162.159.136.232;162.159.136.234;162.159.137.232;162.159.138.232" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_21" rule="162.159.61.3;162.247.243.29;172.217.194.100;172.217.194.101;172.217.194.102;172.217.194.103;172.217.194.104;172.217.194.105" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_22" rule="172.217.194.106;172.217.194.113;172.217.194.132;172.217.194.138;172.217.194.139;172.217.194.147;172.217.194.17;172.217.194.18" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_23" rule="172.217.194.19;172.217.194.83;172.217.194.94;172.217.194.95;172.217.194.97;172.217.194.99;172.217.70.103;172.217.70.104" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_24" rule="172.217.70.105;172.217.70.106;172.217.70.147;172.217.70.95;172.217.70.99;172.253.118.100;172.253.118.101;172.253.118.102" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_25" rule="172.253.118.113;172.253.118.138;172.253.118.139;172.253.118.154;172.253.118.155;172.253.118.156;172.253.118.157;172.253.118.17" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_26" rule="172.253.118.18;172.253.118.19;172.253.118.83;172.253.118.84;172.253.118.94;172.253.118.95;172.253.118.97;172.253.134.139" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_27" rule="172.64.148.10;172.64.149.23;172.64.154.248;172.64.41.3;172.66.163.68;172.67.142.245;172.67.200.138;172.67.68.11" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_28" rule="172.67.69.226;173.194.174.84;184.87.193.72;184.87.193.93;185.199.108.133;185.199.108.153;185.199.108.154;185.199.109.133" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_29" rule="185.199.109.153;185.199.109.154;185.199.110.133;185.199.110.153;185.199.110.154;185.199.111.133;185.199.111.153;185.199.111.154" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_30" rule="199.232.210.172;20.190.141.32;20.190.141.33;20.190.141.34;20.190.141.35;20.190.141.36;20.190.141.37;20.190.141.38" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_31" rule="20.190.141.39;20.190.144.136;20.190.144.137;20.190.144.138;20.190.144.139;20.190.144.160;20.190.144.161;20.190.144.162" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_32" rule="20.190.144.163;20.190.144.164;20.190.144.165;20.190.144.166;20.190.148.162;20.190.148.163;20.190.148.164;20.190.148.165" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_33" rule="20.190.148.166;20.190.148.167;20.190.163.18;20.190.163.19;20.190.163.20;20.190.163.21;20.190.166.131;20.190.166.132" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_34" rule="20.190.166.133;20.190.166.66;20.190.166.67;20.190.166.68;20.198.167.116;20.205.243.166;20.205.243.168;20.27.177.113" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_35" rule="20.44.10.123;204.79.197.203;208.94.117.187;216.198.53.11;216.198.53.3;216.198.54.11;216.198.54.3;216.239.32.178" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_36" rule="216.239.32.181;216.239.34.178;216.239.34.181;216.239.36.178;216.239.36.181;216.239.38.178;216.239.38.181;23.202.129.66" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_37" rule="23.210.96.161;23.213.43.202;23.213.43.223;23.45.207.172;23.45.207.174;23.45.207.66;23.45.207.67;23.45.207.68" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_38" rule="23.45.207.69;23.45.207.71;23.45.207.72;23.45.207.90;23.45.207.91;23.45.207.92;23.53.118.114;23.53.118.82" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_39" rule="23.53.118.93;23.53.118.96;23.55.39.11;23.55.39.12;23.55.39.13;23.55.39.14;23.55.39.15;23.55.39.17" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_40" rule="23.55.39.18;23.55.39.19;23.55.39.4;23.55.44.40;23.55.44.44;3.165.102.113;3.165.102.122;3.165.102.124" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_41" rule="3.165.102.52;3.169.121.107;3.169.121.108;3.169.121.109;3.169.121.118;3.169.121.129;3.169.121.14;3.169.121.44" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_42" rule="3.169.121.51;3.169.121.68;3.169.121.76;3.169.121.89;3.169.121.97;3.169.55.11;3.169.55.51;3.169.55.57" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_43" rule="3.169.55.89;34.111.57.229;34.117.59.81;34.120.31.228;34.160.81.0;34.54.88.138;4.241.22.149;40.119.213.159" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_44" rule="40.126.13.8;40.126.13.9;40.126.16.163;40.126.16.164;40.126.16.165;40.126.16.166;40.126.16.167;40.126.35.128" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_45" rule="40.126.35.129;40.126.35.134;40.126.35.144;40.126.35.145;40.126.35.18;40.126.35.19;40.126.35.20;40.126.35.21" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_46" rule="40.126.35.64;40.126.35.80;40.126.35.81;40.126.35.84;40.126.35.85;40.126.35.86;40.126.35.87;40.126.38.19" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_47" rule="40.126.38.20;40.126.38.21;40.126.38.22;52.123.252.11;52.123.252.17;52.123.252.21;52.123.252.27;52.123.252.30" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_48" rule="52.123.252.32;52.123.252.5;52.123.252.7;52.139.252.32;57.144.144.1;57.144.144.128;64.233.170.100;64.233.170.101" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_49" rule="64.233.170.102;64.233.170.113;64.233.170.138;64.233.170.139;64.233.170.17;64.233.170.18;64.233.170.19;64.233.170.83" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_50" rule="64.233.170.94;64.233.170.95;64.233.189.94;65.8.76.127;65.8.76.50;65.8.76.66;65.8.76.9;74.125.130.100" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_51" rule="74.125.130.101;74.125.130.102;74.125.130.113;74.125.130.138;74.125.130.139;74.125.130.94;74.125.130.95;74.125.200.100" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_52" rule="74.125.200.101;74.125.200.102;74.125.200.113;74.125.200.138;74.125.200.139;74.125.200.17;74.125.200.18;74.125.200.19" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_53" rule="74.125.200.83;74.125.200.94;74.125.200.95;74.125.200.97;74.125.24.100;74.125.24.101;74.125.24.102;74.125.24.103" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_54" rule="74.125.24.104;74.125.24.105;74.125.24.106;74.125.24.113;74.125.24.138;74.125.24.139;74.125.24.147;74.125.24.17" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_55" rule="74.125.24.18;74.125.24.19;74.125.24.83;74.125.24.84;74.125.24.94;74.125.24.95;74.125.24.97;74.125.24.99" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_56" rule="74.125.68.100;74.125.68.101;74.125.68.102;74.125.68.113;74.125.68.132;74.125.68.138;74.125.68.139;74.125.68.17" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_57" rule="74.125.68.18;74.125.68.19;74.125.68.83;74.125.68.84;74.125.68.94;74.125.68.95;74.125.68.97;74.179.77.204" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+        <item name="white_58" rule="79.124.17.100" protocol="6" apps="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" is_enabled="true" />
+    </rules_custom>
+    <rules_config>
+        <item name="WS-Discovery [events]" is_enabled="false" />
+        <item name="WS-Discovery" is_enabled="false" />
+        <item name="UPnP" is_enabled="false" />
+        <item name="SSDP [outbound]" is_enabled="false" />
+        <item name="SSDP [inbound]" is_enabled="false" />
+        <item name="Security policy" is_enabled="false" />
+        <item name="NetBIOS [outbound]" is_enabled="false" />
+        <item name="NetBIOS [inbound]" is_enabled="false" />
+        <item name="NCSI" is_enabled="false" />
+        <item name="mDNS" is_enabled="false" />
+        <item name="LLMNR" is_enabled="false" />
+        <item name="KMS service" is_enabled="false" />
+        <item name="IGMP" is_enabled="false" />
+        <item name="Cryptographic service" is_enabled="false" />
+        <item name="DNS" is_enabled="false" />
+        <item name="NTP" is_enabled="false" />
+        <item name="HTTP" apps="C:\program files\windowsapps\microsoft.desktopappinstaller_1.26.509.0_x64__8wekyb3d8bbwe\winget.exe" is_enabled="false" />
+    </rules_config>
+</root>

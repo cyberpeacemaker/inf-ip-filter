@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root version="5" type="3" timestamp="1770973935">
+    <apps>
+        <item path="CryptSvc" timestamp="1770197885" is_undeletable="true" />
+        <item path="Dhcp" timestamp="1770197871" is_undeletable="true" />
+        <item path="Dnscache" timestamp="1770197885" is_undeletable="true" />
+        <item path="DoSvc" timestamp="1770198842" is_undeletable="true" />
+        <item path="NlaSvc" timestamp="1770197871" is_undeletable="true" />
+        <item path="Spooler" timestamp="1770197871" is_undeletable="true" />
+        <item path="UsoSvc" timestamp="1770197871" is_undeletable="true" />
+        <item path="wlidsvc" timestamp="1770198842" is_undeletable="true" />
+        <item path="wuauserv" timestamp="1770198842" is_undeletable="true" />
+        <item path="C:\users\sinceremony\appdata\local\line\bin\current\line.exe" timestamp="1770797770" />
+        <item path="C:\WINDOWS\system32\SppExtComObj.exe" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\WINDOWS\system32\lsass.exe" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\Program Files\simplewall\simplewall.exe" timestamp="1770202993" is_undeletable="true" is_enabled="true" />
+        <item path="System" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\WINDOWS\system32\svchost.exe" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\windows\system32\slui.exe" timestamp="1770216773" />
+        <item path="C:\windows\system32\appidcertstorecheck.exe" timestamp="1770216779" />
+        <item path="C:\windows\systemapps\microsoft.windows.startmenuexperiencehost_cw5n1h2txyewy\startmenuexperiencehost.exe" timestamp="1770216866" />
+        <item path="C:\users\sinceremony\appdata\local\microsoft\onedrive\onedrivestandaloneupdater.exe" timestamp="1770216952" />
+        <item path="C:\program files (x86)\microsoft\edge\application\msedge.exe" timestamp="1770216967" />
+        <item path="C:\users\sinceremony\appdata\local\programs\microsoft vs code\code.exe" timestamp="1770216985" />
+        <item path="C:\windows\system32\wermgr.exe" timestamp="1770217133" />
+        <item path="C:\program files\windowsapps\microsoftwindows.client.webexperience_525.18101.90.9_x64__cw5n1h2txyewy\dashboard\widgets.exe" timestamp="1770217133" />
+        <item path="C:\windows\system32\driverstore\filerepository\hpcustomcapcomp.inf_amd64_383a15da209a6794\x64\bridgecommunication.exe" timestamp="1770217141" />
+        <item path="C:\windows\immersivecontrolpanel\systemsettings.exe" timestamp="1770217597" />
+        <item path="C:\program files (x86)\microsoft\edgewebview\application\144.0.3719.93\msedgewebview2.exe" timestamp="1770104786" />
+        <item path="C:\program files (x86)\microsoft\edgeupdate\microsoftedgeupdate.exe" timestamp="1770105225" />
+        <item path="C:\windows\system32\taskhostw.exe" timestamp="1770108424" />
+        <item path="C:\windows\explorer.exe" timestamp="1770109467" />
+        <item path="C:\windows\system32\driverstore\filerepository\hpcustomcapcomp.inf_amd64_383a15da209a6794\x64\apphelpercap.exe" timestamp="1770111168" />
+        <item path="C:\windows\system32\driverstore\filerepository\hpcustomcapcomp.inf_amd64_383a15da209a6794\x64\sysinfocap.exe" timestamp="1770111168" />
+        <item path="C:\windows\system32\compattelrunner.exe" timestamp="1770111226" />
+        <item path="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\githubdesktop.exe" timestamp="1770113466" />
+        <item path="C:\users\sinceremony\appdata\local\githubdesktop\update.exe" timestamp="1770113467" />
+        <item path="C:\users\sinceremony\appdata\local\microsoft\onedrive\onedrive.exe" timestamp="1770185212" />
+        <item path="C:\windows\system32\rundll32.exe" timestamp="1770185341" />
+        <item path="C:\users\sinceremony\downloads\autoruns.exe" timestamp="1770185478" />
+        <item path="C:\windows\systemapps\microsoftwindows.client.cbs_cw5n1h2txyewy\textinputhost.exe" timestamp="1770186023" />
+        <item path="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\resources\app\git\mingw64\bin\git-remote-https.exe" timestamp="1770187479" />
+        <item path="C:\windows\system32\nslookup.exe" timestamp="1770189413" />
+        <item path="C:\windows\system32\apphostregistrationverifier.exe" timestamp="1770192486" />
+        <item path="C:\windows\system32\sihclient.exe" timestamp="1770194320" />
+        <item path="C:\windows\system32\msiexec.exe" timestamp="1770274923" />
+        <item path="C:\program files\windowsapps\microsoft.desktopappinstaller_1.26.509.0_x64__8wekyb3d8bbwe\appinstallerpythonredirector.exe" timestamp="1770274974" />
+        <item path="C:\program files\windows defender\mpcmdrun.exe" timestamp="1770275218" />
+        <item path="C:\program files\windowsapps\microsoft.desktopappinstaller_1.26.509.0_x64__8wekyb3d8bbwe\winget.exe" timestamp="1770797857" />
+    </apps>
+    <rules_custom>
+        <item name="TCP443" rule="443" protocol="6" apps="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\githubdesktop.exe|C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\resources\app\git\mingw64\bin\git-remote-https.exe|C:\users\sinceremony\appdata\local\line\bin\current\line.exe" is_enabled="true" />
+        <item name="DoH-svc" rule="9.9.9.9:443;1.1.1.1:443;8.8.8.8:443" protocol="6" apps="C:\WINDOWS\system32\svchost.exe" is_enabled="true" />
+        <item name="white_1" rule=":443;1.1.1.1:443;104.16.105.80:443;104.16.106.80:443;104.18.20.226:443;104.18.21.226:443;104.18.22.222:443;104.18.23.222:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_2" rule="104.18.40.144:443;104.19.189.84:443;104.19.190.84:443;104.46.162.225:443;108.177.97.94:443;118.214.252.115:443;13.107.13.93:443;13.107.213.73:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_3" rule="135.233.95.80:443;142.250.196.193:443;142.250.196.194:443;142.250.196.195:443;142.250.196.196:443;142.250.196.200:443;142.250.196.202:443;142.250.196.206:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_4" rule="142.250.196.214:443;142.250.198.65:443;142.250.198.66:443;142.250.198.67:443;142.250.198.74:443;142.250.198.78:443;142.250.198.86:443;142.250.204.34:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_5" rule="142.250.204.35:443;142.250.204.36:443;142.250.204.37:443;142.250.204.42:443;142.250.204.46:443;142.250.204.54:443;142.250.66.68:443;142.250.66.69:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_6" rule="142.250.66.72:443;142.250.66.74:443;142.250.66.78:443;142.250.77.10:443;142.250.77.14:443;142.250.77.22:443;142.250.77.3:443;142.250.77.5:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_7" rule="142.250.77.6:443;142.251.150.119:443;142.251.151.119:443;142.251.152.119:443;142.251.153.119:443;142.251.154.119:443;142.251.155.119:443;142.251.156.119:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_8" rule="142.251.157.119:443;142.251.8.84:443;147.92.146.114:443;147.92.191.21:443;147.92.242.232:443;150.171.22.17:443;150.171.28.10:443;162.159.61.3:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_9" rule="162.247.241.14:443;162.247.243.29:443;172.64.147.112:443;172.64.41.3:443;185.199.108.133:443;185.199.108.154:443;185.199.109.133:443;185.199.109.154:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_10" rule="185.199.110.133:443;185.199.110.154:443;185.199.111.133:443;185.199.111.154:443;193.175.83.138:443;195.187.6.12:443;20.189.173.4:443;20.189.79.72:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_11" rule="20.190.141.32:443;20.190.141.33:443;20.190.141.34:443;20.190.141.35:443;20.190.141.36:443;20.190.141.37:443;20.190.141.38:443;20.190.141.39:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_12" rule="20.190.166.131:443;20.190.166.132:443;20.190.166.133:443;20.190.166.66:443;20.190.166.67:443;20.190.166.68:443;20.194.184.156:443;20.27.177.113:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_13" rule="203.69.138.136:443;203.69.138.233:443;203.69.138.99:443;203.69.81.51:443;203.69.81.58:443;210.71.227.113:443;210.71.227.115:443;210.71.227.139:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_14" rule="210.71.227.147:443;210.71.227.153:443;210.71.227.163:443;210.71.227.176:443;210.71.227.184:443;210.71.227.201:443;210.71.227.203:443;210.71.227.208:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_15" rule="210.71.227.211:443;210.71.227.216:443;210.71.227.217:443;210.71.227.218:443;210.71.227.96:443;216.239.32.223:443;216.239.34.157:443;216.239.34.159:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_16" rule="216.239.34.223:443;216.239.36.223:443;216.239.38.223:443;3.169.137.32:443;3.169.137.94:443;34.104.35.123:443;34.54.88.138:443;4.144.165.14:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_17" rule="4.241.22.149:443;40.119.213.159:443;40.126.13.8:443;40.126.13.9:443;40.126.38.19:443;40.126.38.20:443;40.126.38.21:443;40.126.38.22:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_18" rule="40.74.81.198:443;48.192.1.64:443;52.178.17.234:443;64.233.188.84:443;64.233.189.84:443;74.125.203.188:443;8.8.8.8:443;9.9.9.9:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_19" rule="92.223.95.95:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+    </rules_custom>
+    <rules_config>
+        <item name="WS-Discovery [events]" is_enabled="false" />
+        <item name="WS-Discovery" is_enabled="false" />
+        <item name="UPnP" is_enabled="false" />
+        <item name="SSDP [outbound]" is_enabled="false" />
+        <item name="SSDP [inbound]" is_enabled="false" />
+        <item name="Security policy" is_enabled="false" />
+        <item name="NetBIOS [outbound]" is_enabled="false" />
+        <item name="NetBIOS [inbound]" is_enabled="false" />
+        <item name="NCSI" is_enabled="false" />
+        <item name="mDNS" is_enabled="false" />
+        <item name="LLMNR" is_enabled="false" />
+        <item name="KMS service" is_enabled="false" />
+        <item name="IGMP" is_enabled="false" />
+        <item name="Cryptographic service" is_enabled="false" />
+        <item name="DNS" is_enabled="false" />
+        <item name="NTP" is_enabled="false" />
+        <item name="HTTP" apps="C:\program files\windowsapps\microsoft.desktopappinstaller_1.26.509.0_x64__8wekyb3d8bbwe\winget.exe" is_enabled="false" />
+    </rules_config>
+</root>

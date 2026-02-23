@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root version="5" type="3" timestamp="1770973935">
+    <apps>
+        <item path="CryptSvc" timestamp="1770197885" is_undeletable="true" />
+        <item path="Dhcp" timestamp="1770197871" is_undeletable="true" />
+        <item path="Dnscache" timestamp="1770197885" is_undeletable="true" />
+        <item path="DoSvc" timestamp="1770198842" is_undeletable="true" />
+        <item path="NlaSvc" timestamp="1770197871" is_undeletable="true" />
+        <item path="Spooler" timestamp="1770197871" is_undeletable="true" />
+        <item path="UsoSvc" timestamp="1770197871" is_undeletable="true" />
+        <item path="wlidsvc" timestamp="1770198842" is_undeletable="true" />
+        <item path="wuauserv" timestamp="1770198842" is_undeletable="true" />
+        <item path="C:\users\sinceremony\appdata\local\line\bin\current\line.exe" timestamp="1770797770" />
+        <item path="C:\WINDOWS\system32\SppExtComObj.exe" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\WINDOWS\system32\lsass.exe" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\Program Files\simplewall\simplewall.exe" timestamp="1770202993" is_undeletable="true" is_enabled="true" />
+        <item path="System" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\WINDOWS\system32\svchost.exe" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\windows\system32\slui.exe" timestamp="1770216773" />
+        <item path="C:\windows\system32\appidcertstorecheck.exe" timestamp="1770216779" />
+        <item path="C:\windows\systemapps\microsoft.windows.startmenuexperiencehost_cw5n1h2txyewy\startmenuexperiencehost.exe" timestamp="1770216866" />
+        <item path="C:\users\sinceremony\appdata\local\microsoft\onedrive\onedrivestandaloneupdater.exe" timestamp="1770216952" />
+        <item path="C:\program files (x86)\microsoft\edge\application\msedge.exe" timestamp="1770216967" />
+        <item path="C:\users\sinceremony\appdata\local\programs\microsoft vs code\code.exe" timestamp="1770216985" />
+        <item path="C:\windows\system32\wermgr.exe" timestamp="1770217133" />
+        <item path="C:\program files\windowsapps\microsoftwindows.client.webexperience_525.18101.90.9_x64__cw5n1h2txyewy\dashboard\widgets.exe" timestamp="1770217133" />
+        <item path="C:\windows\system32\driverstore\filerepository\hpcustomcapcomp.inf_amd64_383a15da209a6794\x64\bridgecommunication.exe" timestamp="1770217141" />
+        <item path="C:\windows\immersivecontrolpanel\systemsettings.exe" timestamp="1770217597" />
+        <item path="C:\program files (x86)\microsoft\edgewebview\application\144.0.3719.93\msedgewebview2.exe" timestamp="1770104786" />
+        <item path="C:\program files (x86)\microsoft\edgeupdate\microsoftedgeupdate.exe" timestamp="1770105225" />
+        <item path="C:\windows\system32\taskhostw.exe" timestamp="1770108424" />
+        <item path="C:\windows\explorer.exe" timestamp="1770109467" />
+        <item path="C:\windows\system32\driverstore\filerepository\hpcustomcapcomp.inf_amd64_383a15da209a6794\x64\apphelpercap.exe" timestamp="1770111168" />
+        <item path="C:\windows\system32\driverstore\filerepository\hpcustomcapcomp.inf_amd64_383a15da209a6794\x64\sysinfocap.exe" timestamp="1770111168" />
+        <item path="C:\windows\system32\compattelrunner.exe" timestamp="1770111226" />
+        <item path="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\githubdesktop.exe" timestamp="1770113466" />
+        <item path="C:\users\sinceremony\appdata\local\githubdesktop\update.exe" timestamp="1770113467" />
+        <item path="C:\users\sinceremony\appdata\local\microsoft\onedrive\onedrive.exe" timestamp="1770185212" />
+        <item path="C:\windows\system32\rundll32.exe" timestamp="1770185341" />
+        <item path="C:\users\sinceremony\downloads\autoruns.exe" timestamp="1770185478" />
+        <item path="C:\windows\systemapps\microsoftwindows.client.cbs_cw5n1h2txyewy\textinputhost.exe" timestamp="1770186023" />
+        <item path="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\resources\app\git\mingw64\bin\git-remote-https.exe" timestamp="1770187479" />
+        <item path="C:\windows\system32\nslookup.exe" timestamp="1770189413" />
+        <item path="C:\windows\system32\apphostregistrationverifier.exe" timestamp="1770192486" />
+        <item path="C:\windows\system32\sihclient.exe" timestamp="1770194320" />
+        <item path="C:\windows\system32\msiexec.exe" timestamp="1770274923" />
+        <item path="C:\program files\windowsapps\microsoft.desktopappinstaller_1.26.509.0_x64__8wekyb3d8bbwe\appinstallerpythonredirector.exe" timestamp="1770274974" />
+        <item path="C:\program files\windows defender\mpcmdrun.exe" timestamp="1770275218" />
+        <item path="C:\program files\windowsapps\microsoft.desktopappinstaller_1.26.509.0_x64__8wekyb3d8bbwe\winget.exe" timestamp="1770797857" />
+    </apps>
+    <rules_custom>
+        <item name="TCP443" rule="443" protocol="6" apps="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\githubdesktop.exe|C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\resources\app\git\mingw64\bin\git-remote-https.exe|C:\users\sinceremony\appdata\local\line\bin\current\line.exe" is_enabled="true" />
+        <item name="DoH-svc" rule="9.9.9.9:443;1.1.1.1:443;8.8.8.8:443" protocol="6" apps="C:\WINDOWS\system32\svchost.exe" is_enabled="true" />
+        <item name="white_1" rule="1.1.1.1:443;8.8.8.8:443;9.9.9.9:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+    </rules_custom>
+    <rules_config>
+        <item name="WS-Discovery [events]" is_enabled="false" />
+        <item name="WS-Discovery" is_enabled="false" />
+        <item name="UPnP" is_enabled="false" />
+        <item name="SSDP [outbound]" is_enabled="false" />
+        <item name="SSDP [inbound]" is_enabled="false" />
+        <item name="Security policy" is_enabled="false" />
+        <item name="NetBIOS [outbound]" is_enabled="false" />
+        <item name="NetBIOS [inbound]" is_enabled="false" />
+        <item name="NCSI" is_enabled="false" />
+        <item name="mDNS" is_enabled="false" />
+        <item name="LLMNR" is_enabled="false" />
+        <item name="KMS service" is_enabled="false" />
+        <item name="IGMP" is_enabled="false" />
+        <item name="Cryptographic service" is_enabled="false" />
+        <item name="DNS" is_enabled="false" />
+        <item name="NTP" is_enabled="false" />
+        <item name="HTTP" apps="C:\program files\windowsapps\microsoft.desktopappinstaller_1.26.509.0_x64__8wekyb3d8bbwe\winget.exe" is_enabled="false" />
+    </rules_config>
+</root>

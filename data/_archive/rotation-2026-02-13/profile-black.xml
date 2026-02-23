@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root version="5" type="3" timestamp="1770279862">
+    <apps>
+        <item path="CryptSvc" timestamp="1770197885" is_undeletable="true" />
+        <item path="Dhcp" timestamp="1770197871" is_undeletable="true" />
+        <item path="Dnscache" timestamp="1770197885" is_undeletable="true" />
+        <item path="DoSvc" timestamp="1770198842" is_undeletable="true" />
+        <item path="NlaSvc" timestamp="1770197871" is_undeletable="true" />
+        <item path="Spooler" timestamp="1770197871" is_undeletable="true" />
+        <item path="UsoSvc" timestamp="1770197871" is_undeletable="true" />
+        <item path="wlidsvc" timestamp="1770198842" is_undeletable="true" />
+        <item path="wuauserv" timestamp="1770198842" is_undeletable="true" />
+        <item path="C:\WINDOWS\system32\SppExtComObj.exe" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\WINDOWS\system32\lsass.exe" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\Program Files\simplewall\simplewall.exe" timestamp="1770202993" is_undeletable="true" is_enabled="true" />
+        <item path="System" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\WINDOWS\system32\svchost.exe" timestamp="1770202993" is_undeletable="true" />
+        <item path="C:\windows\system32\slui.exe" timestamp="1770216773" />
+        <item path="C:\windows\system32\appidcertstorecheck.exe" timestamp="1770216779" />
+        <item path="C:\windows\systemapps\microsoft.windows.startmenuexperiencehost_cw5n1h2txyewy\startmenuexperiencehost.exe" timestamp="1770216866" />
+        <item path="C:\users\sinceremony\appdata\local\microsoft\onedrive\onedrivestandaloneupdater.exe" timestamp="1770216952" />
+        <item path="C:\program files (x86)\microsoft\edge\application\msedge.exe" timestamp="1770216967" />
+        <item path="C:\users\sinceremony\appdata\local\programs\microsoft vs code\code.exe" timestamp="1770216985" />
+        <item path="C:\windows\system32\wermgr.exe" timestamp="1770217133" />
+        <item path="C:\program files\windowsapps\microsoftwindows.client.webexperience_525.18101.90.9_x64__cw5n1h2txyewy\dashboard\widgets.exe" timestamp="1770217133" />
+        <item path="C:\windows\system32\driverstore\filerepository\hpcustomcapcomp.inf_amd64_383a15da209a6794\x64\bridgecommunication.exe" timestamp="1770217141" />
+        <item path="C:\windows\immersivecontrolpanel\systemsettings.exe" timestamp="1770217597" />
+        <item path="C:\program files (x86)\microsoft\edgewebview\application\144.0.3719.93\msedgewebview2.exe" timestamp="1770104786" />
+        <item path="C:\program files (x86)\microsoft\edgeupdate\microsoftedgeupdate.exe" timestamp="1770105225" />
+        <item path="C:\windows\system32\taskhostw.exe" timestamp="1770108424" />
+        <item path="C:\windows\explorer.exe" timestamp="1770109467" />
+        <item path="C:\windows\system32\driverstore\filerepository\hpcustomcapcomp.inf_amd64_383a15da209a6794\x64\apphelpercap.exe" timestamp="1770111168" />
+        <item path="C:\windows\system32\driverstore\filerepository\hpcustomcapcomp.inf_amd64_383a15da209a6794\x64\sysinfocap.exe" timestamp="1770111168" />
+        <item path="C:\windows\system32\compattelrunner.exe" timestamp="1770111226" />
+        <item path="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\githubdesktop.exe" timestamp="1770113466" />
+        <item path="C:\users\sinceremony\appdata\local\githubdesktop\update.exe" timestamp="1770113467" />
+        <item path="C:\users\sinceremony\appdata\local\microsoft\onedrive\onedrive.exe" timestamp="1770185212" />
+        <item path="C:\windows\system32\rundll32.exe" timestamp="1770185341" />
+        <item path="C:\users\sinceremony\downloads\autoruns.exe" timestamp="1770185478" />
+        <item path="C:\windows\systemapps\microsoftwindows.client.cbs_cw5n1h2txyewy\textinputhost.exe" timestamp="1770186023" />
+        <item path="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\resources\app\git\mingw64\bin\git-remote-https.exe" timestamp="1770187479" />
+        <item path="C:\windows\system32\nslookup.exe" timestamp="1770189413" />
+        <item path="C:\windows\system32\apphostregistrationverifier.exe" timestamp="1770192486" />
+        <item path="C:\windows\system32\sihclient.exe" timestamp="1770194320" />
+        <item path="C:\windows\system32\msiexec.exe" timestamp="1770274923" />
+        <item path="C:\program files\windowsapps\microsoft.desktopappinstaller_1.26.509.0_x64__8wekyb3d8bbwe\appinstallerpythonredirector.exe" timestamp="1770274974" />
+        <item path="C:\program files\windows defender\mpcmdrun.exe" timestamp="1770275218" />
+    </apps>
+    <rules_custom>
+        <item name="TCP443" rule="443" protocol="6" apps="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\githubdesktop.exe|C:\program files (x86)\microsoft\edge\application\msedge.exe|C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\resources\app\git\mingw64\bin\git-remote-https.exe" is_enabled="true" />
+        <item name="DoH-svc" rule="9.9.9.9:443;1.1.1.1:443" protocol="6" apps="C:\WINDOWS\system32\svchost.exe" is_enabled="true" />
+        <item name="suspicious_1" rule="3.169.36.63;3.169.55.17;3.169.137.0/24;4.144.165.14;4.190.254.44;4.190.254.63;4.241.22.149;4.241.155.66" is_block="true" is_enabled="true" />
+        <item name="suspicious_2" rule="9.9.9.9;13.35.238.61;13.35.238.105;13.69.239.78;13.89.178.26;13.89.179.0/24;13.107.213.46;13.107.213.73" is_block="true" is_enabled="true" />
+        <item name="suspicious_3" rule="13.107.246.46;13.107.246.73;20.27.177.116;20.42.65.0/24;20.42.72.131;20.42.73.24;20.42.73.25;20.42.73.30" is_block="true" is_enabled="true" />
+        <item name="suspicious_4" rule="20.50.73.9;20.50.80.210;20.50.201.201;20.50.201.203;20.99.186.246;20.189.173.0/24;20.194.184.156;20.210.166.59" is_block="true" is_enabled="true" />
+        <item name="suspicious_5" rule="23.100.109.78;23.108.101.160;23.108.101.161;23.248.249.10;34.36.213.229;34.107.204.85;34.117.77.79;34.160.81.0" is_block="true" is_enabled="true" />
+        <item name="suspicious_6" rule="35.213.89.133;40.74.78.229;40.74.79.222;40.74.81.198;40.74.98.195;40.79.150.121;40.79.167.8;40.79.173.40" is_block="true" is_enabled="true" />
+        <item name="suspicious_7" rule="40.79.173.41;40.79.197.34;40.119.213.159;43.250.0.64;45.60.31.34;48.210.122.205;48.210.122.216;51.11.192.48" is_block="true" is_enabled="true" />
+        <item name="suspicious_8" rule="51.104.15.252;51.116.246.104;51.116.253.169;51.132.193.104;52.123.224.161;52.139.252.32;52.167.109.66;52.168.117.0/24" is_block="true" is_enabled="true" />
+        <item name="suspicious_9" rule="52.182.143.0/24;64.233.188.94;64.233.189.94;74.125.203.95;103.43.90.114;103.43.90.115;103.43.90.178;103.43.91.8" is_block="true" is_enabled="true" />
+        <item name="suspicious_10" rule="104.17.24.14;104.17.25.14;104.18.38.233;104.208.16.91;104.208.16.92;104.215.41.138;108.156.144.115;108.177.125.95" is_block="true" is_enabled="true" />
+        <item name="suspicious_11" rule="140.82.112.25;140.82.112.26;140.82.113.25;140.82.114.25;142.250.77.14;142.250.198.67;142.251.153.119;142.251.154.119" is_block="true" is_enabled="true" />
+        <item name="suspicious_12" rule="142.251.157.119;150.171.22.12;150.171.27.11;150.171.28.11;151.101.66.217;151.101.129.55;151.101.130.217;152.42.150.143" is_block="true" is_enabled="true" />
+        <item name="suspicious_13" rule="162.159.128.233;162.159.129.232;162.159.130.232;162.159.130.233;162.159.130.234;162.159.133.234;162.159.134.232;162.159.134.233" is_block="true" is_enabled="true" />
+        <item name="suspicious_14" rule="162.159.134.234;162.159.135.232;162.159.135.234;162.159.136.232;162.159.136.234;162.159.137.232;162.159.138.232;172.64.149.23" is_block="true" is_enabled="true" />
+        <item name="suspicious_15" rule="175.97.131.54;185.199.108.133;199.60.103.30;199.232.210.172;199.232.214.172;203.69.81.0/24;203.69.138.0/24;204.79.197.203" is_block="true" is_enabled="true" />
+        <item name="suspicious_16" rule="210.71.227.0/24;216.198.54.11;216.239.32.181;216.239.34.181;216.239.36.181;216.239.38.181" is_block="true" is_enabled="true" />
+    </rules_custom>
+    <rules_config>
+        <item name="WS-Discovery [events]" is_enabled="false" />
+        <item name="WS-Discovery" is_enabled="false" />
+        <item name="UPnP" is_enabled="false" />
+        <item name="SSDP [outbound]" is_enabled="false" />
+        <item name="SSDP [inbound]" is_enabled="false" />
+        <item name="Security policy" is_enabled="false" />
+        <item name="NetBIOS [outbound]" is_enabled="false" />
+        <item name="NetBIOS [inbound]" is_enabled="false" />
+        <item name="NCSI" is_enabled="false" />
+        <item name="mDNS" is_enabled="false" />
+        <item name="LLMNR" is_enabled="false" />
+        <item name="KMS service" is_enabled="false" />
+        <item name="IGMP" is_enabled="false" />
+        <item name="Cryptographic service" is_enabled="false" />
+        <item name="DNS" is_enabled="false" />
+        <item name="NTP" is_enabled="false" />
+    </rules_config>
+</root>

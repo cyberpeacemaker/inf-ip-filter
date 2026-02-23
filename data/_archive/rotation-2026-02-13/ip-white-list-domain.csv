@@ -1,0 +1,12 @@
+domain,reason
+www.abuseipdb.com,AbuseIPDB
+static.cloudflareinsights.com,Cloudflare Insights (required by AbuseIPDB)
+challenges.cloudflare.com,abuseipdb
+google.com,Google
+gemini.google.com,Gemini
+www.virustotal.com,VirusTotal
+chatgpt.com,Chatgpt
+developers.redhat.com,Redhat
+gemini.google.com, Gemini
+accounts.google.com, google
+m365.cloud.microsoft, microsoft

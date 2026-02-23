@@ -1,0 +1,67 @@
+Reason,IP
+ Gemini,142.250.196.206
+ Gemini,142.250.198.78
+ Gemini,142.250.204.46
+ google,74.125.23.84
+ google,74.125.204.84
+ google,173.194.174.84
+ microsoft,13.107.6.156
+ microsoft,13.107.9.156
+abuseipdb,104.18.94.41
+abuseipdb,104.18.95.41
+AbuseIPDB,104.26.12.38
+AbuseIPDB,104.26.13.38
+AbuseIPDB,172.67.70.74
+Chatgpt,104.18.32.47
+Chatgpt,172.64.155.209
+Cloudflare Insights,104.16.79.73
+Cloudflare Insights,104.16.80.73
+Cloudflare Insights (required by AbuseIPDB),104.16.79.73
+Cloudflare Insights (required by AbuseIPDB),104.16.80.73
+Gemini,142.250.196.206
+Gemini,142.250.198.78
+Gemini,142.250.204.46
+Gemini or Google,142.250.66.78
+Gemini or Google,142.250.196.196
+Gemini or Google,142.250.196.202
+Gemini or Google,142.250.196.206
+Gemini or Google,142.250.198.69
+Gemini or Google,142.250.198.74
+Gemini or Google,142.250.198.78
+Gemini or Google,142.250.204.36
+Gemini or Google,142.250.204.37
+Gemini or Google,142.250.204.46
+gemini(manual),142.250.196.206
+Google,142.250.196.206
+Google,142.250.198.78
+Google,142.250.204.46
+Redhat,203.69.81.81
+Redhat,203.69.81.137
+Redhat,203.69.138.9
+Redhat,203.69.138.33
+static.cloudflareinsights.com,104.16.79.73
+static.cloudflareinsights.com,104.16.80.73
+temp,142.250.66.67
+temp,142.250.66.74
+temp,142.250.196.193
+temp,142.250.204.35
+temp,142.250.204.40
+temp,142.250.204.42
+tmp,108.177.125.84
+tmp,142.250.198.78
+Virsutotal,34.54.88.138
+VirusTotal,34.54.88.138
+www.abuseipdb.com,104.26.12.38
+www.abuseipdb.com,104.26.13.38
+www.abuseipdb.com,172.67.70.74
+tmp,20.198.167.116
+tmp,13.107.9.156
+tmp,40.126.38.20
+tmp,20.190.166.131
+tmp,203.69.138.215
+tmp,13.107.6.156
+tmp,173.194.174.84
+ttmp,203.69.138.206
+tmp,108.177.97.94
+tmp,142.250.196.195
+google,142.250.196.197
