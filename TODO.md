@@ -1,6 +1,9 @@
 # top
+- manual, mannual?
+- ask ai to finish `_inf_ip_filter.py`
 - todo extension
 - dns rotation for chrome
+- ip-black-mannual
 
 # analysis
 - repo-analysis
@@ -19,7 +22,7 @@
 - check dns-cache before adding to whitelist
 - extract distinguished domain name in dns-cache
 - sort data (ip-white-exclude, ip-white-mannual)
-
+- ip-black-mannual reason modify
 
 - dns-latest
 - exclude or exclusion

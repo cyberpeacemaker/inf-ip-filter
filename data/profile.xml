@@ -51,8 +51,7 @@
     <rules_custom>
         <item name="TCP443" rule="443" protocol="6" apps="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\githubdesktop.exe|C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\resources\app\git\mingw64\bin\git-remote-https.exe|C:\users\sinceremony\appdata\local\line\bin\current\line.exe" is_enabled="true" />
         <item name="DoH-svc" rule="9.9.9.9:443;1.1.1.1:443;8.8.8.8:443" protocol="6" apps="C:\WINDOWS\system32\svchost.exe" is_enabled="true" />
-        <item name="white_1" rule="1.1.1.1:443;8.8.8.8:443;9.9.9.9:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
-    </rules_custom>
+        <item name="white_1" rule="1.1.1.1:443;8.8.8.8:443;9.9.9.9:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" /></rules_custom>
     <rules_config>
         <item name="WS-Discovery [events]" is_enabled="false" />
         <item name="WS-Discovery" is_enabled="false" />

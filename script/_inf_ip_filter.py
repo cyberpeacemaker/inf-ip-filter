@@ -7,34 +7,34 @@ import xml.etree.ElementTree as ET
 PATH_DATA = Path(__file__).resolve().parent.parent / "data"
 PATH_DNS_MASTER = PATH_DATA / "dns-master.csv"
 PATH_WHITE_MASTER = PATH_DATA / "ip-white-master.csv"
-PATH_WHITE_EXCLUDE = PATH_DATA / "ip-white-exclude.csv"
-PATH_WHITE_MANNUAL = PATH_DATA / "ip-white-mannual.csv"
+PATH_WHITE_MANUAL = PATH_DATA / "ip-white-manual.csv"
 # PATH_BLACK_MASTER = PATH_DATA / "ip-black-master.txt"
-# PATH_BLACK_MANNUAL = PATH_DATA / "ip-black-mannual.txt"
+PATH_BLACK_MANUAL = PATH_DATA / "ip-black-manual.csv"
 XML_FILE = PATH_DATA / "profile.xml" 
 GROUP_SIZE = 8
 USER_ITEM_NAME = "white"
 
-def create_simplewall_profile_white_list(white_master):
+def create_simplewall_profile(white_master):
 
-    # Step 1: Read IPs from white_master
+    # Read IPs from white_master
+    # TODO: deduplicated sorting again
     all_entries = sorted(white_master.keys())
 
-    # Step 2: Load existing XML
+    # Load existing XML
     tree = ET.parse(XML_FILE)
     root = tree.getroot()
 
-    # Step 3: Find or create <rules_custom>
+    # Find or create <rules_custom>
     rules_custom = root.find("rules_custom")
     if rules_custom is None:
         rules_custom = ET.SubElement(root, "rules_custom")
 
-    # Step 4: Remove old USER items
+    # Remove old USER items
     for item in list(rules_custom.findall("item")):
         if item.attrib.get("name", "").startswith(f"{USER_ITEM_NAME}_"):
             rules_custom.remove(item)
 
-    # Step 5: Add new items
+    # Add new items
     for i in range(0, len(all_entries), GROUP_SIZE):
         chunk = all_entries[i:i + GROUP_SIZE]
         
@@ -51,23 +51,39 @@ def create_simplewall_profile_white_list(white_master):
             apps=r"C:\Program Files\Google\Chrome\Application\chrome.exe",
             is_enabled="true"
         )
+        # TODO: can i add newline \n here?
 
-    # Step 6: Pretty print
-    def indent(elem, level=0):
-        i = "\n" + level * "    "
-        if len(elem):
-            if not elem.text or not elem.text.strip():
-                elem.text = i + "    "
-            for child in elem:
-                indent(child, level + 1)
-            if not child.tail or not child.tail.strip():
-                child.tail = i
-        if level and (not elem.tail or not elem.tail.strip()):
-            elem.tail = i
+    # TODO: create block ip item
+    # for i in range(0, len(all_entries), gruop_size):
+    #     chunk = all_entries[i:i+gruop_size]
+    #     item_name = f"{user_item_name}_{i // gruop_size + 1}"
+    #     ip_list = ";".join(chunk)
+    #     ET.SubElement(
+    #         rules_custom,
+    #         "item",
+    #         name=item_name,
+    #         rule=ip_list,
+    #         is_block="true",
+    #         is_enabled="true"
+    #     )    
 
-    indent(root)
+    # Pretty print
+    # TODO: use argument to determine do this or not
+    # def indent(elem, level=0):
+    #     i = "\n" + level * "    "
+    #     if len(elem):
+    #         if not elem.text or not elem.text.strip():
+    #             elem.text = i + "    "
+    #         for child in elem:
+    #             indent(child, level + 1)
+    #         if not child.tail or not child.tail.strip():
+    #             child.tail = i
+    #     if level and (not elem.tail or not elem.tail.strip()):
+    #         elem.tail = i
 
-    # Step 7: Write file
+    # indent(root)
+
+    # Write file
     tree.write(XML_FILE, encoding="utf-8", xml_declaration=True)
 
     group_count = (len(all_entries) + GROUP_SIZE - 1) // GROUP_SIZE
@@ -79,23 +95,23 @@ def update_white_master(dns_master):
     Build ip-white-list-master.csv from:
       - dns-cache-master.csv (A records only)
       - minus ip-white-list-exclusion.csv
-      - plus ip-white-list-mannual.csv (manual overrides)
+      - plus ip-white-list-manual.csv (manual overrides)
     Output: [Reason, IP]
     """
 
-    # Load unique exclude IPs
-    excluded_ips = set()
+    # Load black IPs
+    black_ips = set()
 
-    if PATH_WHITE_EXCLUDE.exists():
-        with PATH_WHITE_EXCLUDE.open("r", newline="", encoding="utf-8") as f:
+    if PATH_BLACK_MANUAL.exists():
+        with PATH_BLACK_MANUAL.open("r", newline="", encoding="utf-8") as f:
             reader = csv.reader(f)
             next(reader, None)
             for row in reader:
                 if len(row) >= 2:
-                    excluded_ips.add(row[1].strip())
+                    black_ips.add(row[1].strip())
 
-    # TODO: load exclude domains
-    excluded_domains = set()
+    # TODO: Load black domains
+    black_domain = set()
 
     # Build whitelist from DNS
     white_records = {}
@@ -113,10 +129,10 @@ def update_white_master(dns_master):
 
         # exclude
         ip = data.strip()
-        if ip in excluded_ips:
+        if ip in black_ips:
             continue
         # TODO:
-        # if entry in excluded_domains:
+        # if entry in black_domain:
         #     continue
 
         # Deduplicate by IP (first DNS reason wins for now)        
@@ -127,11 +143,9 @@ def update_white_master(dns_master):
         # if ip in white_records:
         #     white_records[ip] == entry ? if not, why?
 
-    # -----------------------------
-    # 3. Merge manual whitelist (OVERRIDE)
-    # -----------------------------
-    if PATH_WHITE_MANNUAL.exists():
-        with PATH_WHITE_MANNUAL.open("r", newline="", encoding="utf-8") as f:
+    # Merge manual whitelist (OVERRIDE)
+    if PATH_WHITE_MANUAL.exists():
+        with PATH_WHITE_MANUAL.open("r", newline="", encoding="utf-8") as f:
             reader = csv.reader(f)
             next(reader, None)
             for row in reader:
@@ -139,15 +153,17 @@ def update_white_master(dns_master):
                     reason = row[0].strip()
                     ip = row[1].strip()
 
-                    if ip in excluded_ips:
+                    # White manual lose black manual
+                    if ip in black_ips:
                         continue
+                    # TODO:
+                    # if entry in black_domain:
+                    #     continue
 
                     # Manual always wins
                     white_records[ip] = reason
 
-    # -----------------------------
-    # 4. Write master whitelist
-    # -----------------------------
+    # Write master whitelist
     # TODO: create one if no existed file
     with PATH_WHITE_MASTER.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
@@ -216,12 +232,11 @@ if __name__ == "__main__":
     dns_master = update_dns_master()
 
     # 2. (Optional)
-    # Mannualy update ip-exclude.csv
+    # Mannualy update ip-black-manual.csv, ip-white-manual.csv
 
-    # 3. update ip-white-master with [dns-catch-master - ip-white-list-exclusion]
-    # TODO: [dns-catch-master - ip-white-list-exclusion + ip-white-list-mannual]
+    # 3. update ip-white-master with [dns-master + ip-white-manual - ip-black-manual]    
     white_master = update_white_master(dns_master)
 
     # 4. recreate simplewall profile with ip-white-list-master
-    create_simplewall_profile_white_list(white_master)
+    create_simplewall_profile(white_master)
 

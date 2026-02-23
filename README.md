@@ -1,12 +1,12 @@
 # Data Usage
 - dns-master: all dns cache
 - white-master: all white-list ip
-- white-exclude: exclude ip
-- white-mannual: mannual ip
+- white-manual: manual ip
+- black-manual: black ip
 
 # Script Process
 - dns catch (get-dns) + (ipconfig) > dns-master + dns-latest
-- dns-master + white-mannual - white-exclude > white-master
+- dns-master + white-manual - black-manual > white-master
 - white > profile
 
 # Monitor Connection
