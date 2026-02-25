@@ -1,14 +1,11 @@
 # top
-- manual, mannual?
 - ask ai to finish `_inf_ip_filter.py`
 - todo extension
-- dns rotation for chrome
 - ip-black-mannual
 # Ask AI
 - ai: browser hijacking > mitb
 - Windows telemetry, tracking/telemetry
 - malwarebytes
-
 # analysis
 - repo-analysis
   - ip/README
@@ -16,10 +13,7 @@
   - duplicated ip
   - white-exclude + black-mannual
 - 02-13 dns cache
-- Real Intelligence Threat Analytics, zeek
-- snort
-- yara
-
+- Real Intelligence Threat Analytics, zeek, snort, yara
 
 # script
 - check dns-cache before adding to whitelist
