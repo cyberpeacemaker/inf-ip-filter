@@ -16,6 +16,9 @@
   - duplicated ip
   - white-exclude + black-mannual
 - 02-13 dns cache
+- Real Intelligence Threat Analytics, zeek
+- snort
+- yara
 
 
 # script

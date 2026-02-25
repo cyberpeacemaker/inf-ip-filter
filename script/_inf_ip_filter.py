@@ -69,19 +69,19 @@ def create_simplewall_profile(white_master):
 
     # Pretty print
     # TODO: use argument to determine do this or not
-    # def indent(elem, level=0):
-    #     i = "\n" + level * "    "
-    #     if len(elem):
-    #         if not elem.text or not elem.text.strip():
-    #             elem.text = i + "    "
-    #         for child in elem:
-    #             indent(child, level + 1)
-    #         if not child.tail or not child.tail.strip():
-    #             child.tail = i
-    #     if level and (not elem.tail or not elem.tail.strip()):
-    #         elem.tail = i
+    def indent(elem, level=0):
+        i = "\n" + level * "    "
+        if len(elem):
+            if not elem.text or not elem.text.strip():
+                elem.text = i + "    "
+            for child in elem:
+                indent(child, level + 1)
+            if not child.tail or not child.tail.strip():
+                child.tail = i
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i
 
-    # indent(root)
+    indent(root)
 
     # Write file
     tree.write(XML_FILE, encoding="utf-8", xml_declaration=True)
@@ -238,5 +238,6 @@ if __name__ == "__main__":
     white_master = update_white_master(dns_master)
 
     # 4. recreate simplewall profile with ip-white-list-master
+    # Simple tool to configure Windows Filtering Platform (WFP) which can configure network activity on your computer.
     create_simplewall_profile(white_master)
 
