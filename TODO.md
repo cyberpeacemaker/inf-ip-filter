@@ -3,6 +3,7 @@
 - todo extension
 - ip-black-mannual
 # Ask AI
+- same ip from different name. ex: 13.107.213.73
 - ai: browser hijacking > mitb
 - Windows telemetry, tracking/telemetry
 - malwarebytes
