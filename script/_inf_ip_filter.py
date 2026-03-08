@@ -389,7 +389,7 @@ if __name__ == "__main__":
         description="IP filter pipeline: DNS → whitelist → Simplewall profile"
     )
     parser.add_argument(
-        "--no-pretty", action="store_true",
+        "--pretty", action="store_true",
         help="Skip XML indentation (faster write)"
     )
     parser.add_argument(
@@ -397,7 +397,7 @@ if __name__ == "__main__":
         help="Skip DNS cache update (use existing dns-master.csv)"
     )
     parser.add_argument(
-        "--mode", choices=["batch", "interactive"], default="batch",
+        "--mode", choices=["batch", "interactive"], default="interactive",
         help="Set to 'interactive' to prompt for new IP addresses"
     )    
     args = parser.parse_args()
@@ -427,5 +427,5 @@ if __name__ == "__main__":
     create_simplewall_profile(
         white_master,
         black_master=black_master,
-        pretty=not args.no_pretty,
+        pretty=not args.pretty,
     )

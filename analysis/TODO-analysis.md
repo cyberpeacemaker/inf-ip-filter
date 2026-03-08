@@ -16,3 +16,6 @@ raw.githubusercontent.com,1,185.199.108.133,2158
 
 # CRL & OCSP
 104.18.38.233      | crl.sectigo.com, crl.usertrust.com, ocsp.sectigo.com, ocsp.usertrust.com
+
+# Github-desk-top lag?
+140.82.113.26
