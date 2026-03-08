@@ -216,7 +216,7 @@ def update_white_master(dns_master, mode):
                     print(f"  {GREEN}>>{RESET} Yes to all selected. Processing remaining entries...")
                 elif choice == "b":
                     black_domains.add(entry.lower())
-                    # Optionally: write to PATH_BLACK_MANUAL here
+                    # TODO: Optionally: write to PATH_BLACK_MANUAL here
             else:
                 # Add automatically if batch mode or yes_to_all is active
                 white_records[ip] = entry
