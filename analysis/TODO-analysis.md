@@ -13,3 +13,6 @@ raw.githubusercontent.com,1,185.199.108.133,2158
 
 # CDN example
 13.107.213.73
+
+# CRL & OCSP
+104.18.38.233      | crl.sectigo.com, crl.usertrust.com, ocsp.sectigo.com, ocsp.usertrust.com

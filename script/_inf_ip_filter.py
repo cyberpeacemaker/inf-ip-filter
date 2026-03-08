@@ -141,6 +141,8 @@ def update_dns_master():
     return sorted_rows
 
 
+# ── 2. update_white_master ──────────────────────────────────────────────────────
+
 def update_white_master(dns_master, mode):
     """
     Build ip-white-master.csv by loading existing records first, 
@@ -239,13 +241,13 @@ def update_white_master(dns_master, mode):
                 # Add automatically if batch mode or yes_to_all is active
                 white_records[ip] = entry
         
-        # TODO: thinking
+        # TODO: duplicate thinking
         # else:
         #     # If IP exists but domain is different, log it for awareness
         #     if white_records[ip] != entry:
         #         duplicate_log.append((ip, white_records[ip], entry))
 
-    # TODO: thinking
+    # TODO: duplicate thinking
     # # ── report same-IP / different-domain entries ──
     # if duplicate_log:
     #     print(f"\n{YELLOW}⚠  Same IP → multiple domains:{RESET}")
@@ -418,11 +420,12 @@ if __name__ == "__main__":
     white_master = update_white_master(dns_master, args.mode)
 
     # 4. Load black master (for block rules in profile)
+    # TODO: Load black domain?
     black_master = load_black_master()
 
     # 5. Recreate Simplewall profile
-    # create_simplewall_profile(
-    #     white_master,
-    #     black_master=black_master,
-    #     pretty=not args.no_pretty,
-    # )
+    create_simplewall_profile(
+        white_master,
+        black_master=black_master,
+        pretty=not args.no_pretty,
+    )
