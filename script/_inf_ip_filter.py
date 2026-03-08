@@ -29,11 +29,12 @@ BLOCK_ITEM_NAME= "block"
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _prompt_ip(ip, entry) -> str:
-    """Returns 'y', 'n', or 'b'."""
+    """Returns 'y', 'n', or 'b', or 'a'."""
     print(f"\n  {CYAN}{ip:<18}{RESET}  ←  {entry}")
     while True:
-        choice = input("  Add to whitelist? [y]es / [n]o / [b]lock domain: ").strip().lower()
-        if choice in ("y", "n", "b"):
+        # Added [a]ll to the prompt string
+        choice = input("  Add to whitelist? [y]es / [n]o / [b]lock domain / yes to [a]ll: ").strip().lower()
+        if choice in ("y", "n", "b", "a"):
             return choice
         
 def _is_valid_ip(value: str) -> bool:
@@ -142,7 +143,7 @@ def update_dns_master():
 
 # ── 2. update_white_master ────────────────────────────────────────────────────
 
-def update_white_master(dns_master):
+def update_white_master(dns_master, mode):
     """
     Build ip-white-master.csv from:
       dns-master (A records only)
@@ -186,7 +187,7 @@ def update_white_master(dns_master):
     # ── build whitelist from DNS A records ──
     white_records: dict[str, str] = {}   # ip → reason (first domain wins)
     duplicate_log: list[tuple] = []       # [(ip, existing_reason, new_reason)]
-
+    yes_to_all = False  # Track if the user has opted to skip remaining prompts
     for row in dns_master:
         if len(row) < 4:
             continue
@@ -210,16 +211,22 @@ def update_white_master(dns_master):
             continue
 
         if ip not in white_records:
-            if mode == "interactive":
+            # Check if we should prompt or if "yes to all" was previously selected
+            if mode == "interactive" and not yes_to_all:
                 choice = _prompt_ip(ip, entry)
-                # TODO: choice == "n"
+                
                 if choice == "y":
                     white_records[ip] = entry
+                elif choice == "a":
+                    white_records[ip] = entry
+                    yes_to_all = True  # Set flag to True to skip future prompts
+                    print(f"  {GREEN}>>{RESET} Yes to all selected. Processing remaining entries...")
                 elif choice == "b":
                     black_domains.add(entry.lower())
-                    # optionally write back to ip-black-manual.csv immediately
+                    # TODO:... (persistence logic) ...
             else:
-                white_records[ip] = entry  # batch / skip
+                # This executes if mode is "batch" OR if yes_to_all is True
+                white_records[ip] = entry
         else:
             # Same IP resolved from a different domain name — log it
             if white_records[ip] != entry:
@@ -384,6 +391,10 @@ if __name__ == "__main__":
         "--skip-dns", action="store_true",
         help="Skip DNS cache update (use existing dns-master.csv)"
     )
+    parser.add_argument(
+        "--mode", choices=["batch", "interactive"], default="batch",
+        help="Set to 'interactive' to prompt for new IP addresses"
+    )    
     args = parser.parse_args()
 
     # 1. Update dns-master with current DNS cache
@@ -401,7 +412,7 @@ if __name__ == "__main__":
     # 2. (Optional) Manually edit ip-black-manual.csv / ip-white-manual.csv
 
     # 3. Build ip-white-master
-    white_master = update_white_master(dns_master)
+    white_master = update_white_master(dns_master, args.mode)
 
     # 4. Load black master (for block rules in profile)
     black_master = load_black_master()
