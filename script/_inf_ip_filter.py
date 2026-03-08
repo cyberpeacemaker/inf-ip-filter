@@ -1,243 +1,398 @@
+import argparse
 import wmi
-import psutil
 import csv
+import ipaddress
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
-PATH_DATA = Path(__file__).resolve().parent.parent / "data"
-PATH_DNS_MASTER = PATH_DATA / "dns-master.csv"
-PATH_WHITE_MASTER = PATH_DATA / "ip-white-master.csv"
-PATH_WHITE_MANUAL = PATH_DATA / "ip-white-manual.csv"
-# PATH_BLACK_MASTER = PATH_DATA / "ip-black-master.txt"
-PATH_BLACK_MANUAL = PATH_DATA / "ip-black-manual.csv"
-XML_FILE = PATH_DATA / "profile.xml" 
-GROUP_SIZE = 8
+# ── ANSI Colors ──────────────────────────────────────────────────────────────
+GREEN  = "\033[92m"
+YELLOW = "\033[93m"
+RED    = "\033[91m"
+CYAN   = "\033[96m"
+RESET  = "\033[0m"
+BOLD   = "\033[1m"
+
+# ── Paths ────────────────────────────────────────────────────────────────────
+PATH_DATA        = Path(__file__).resolve().parent.parent / "data"
+PATH_DNS_MASTER  = PATH_DATA / "dns-master.csv"
+PATH_WHITE_MASTER= PATH_DATA / "ip-white-master.csv"
+PATH_WHITE_MANUAL= PATH_DATA / "ip-white-manual.csv"
+PATH_BLACK_MANUAL= PATH_DATA / "ip-black-manual.csv"
+PATH_BLACK_DOMAIN= PATH_DATA / "ip-black-domain.csv"
+XML_FILE         = PATH_DATA / "profile.xml"
+
+GROUP_SIZE     = 8
 USER_ITEM_NAME = "white"
+BLOCK_ITEM_NAME= "block"
 
-def create_simplewall_profile(white_master):
+# ── Helpers ───────────────────────────────────────────────────────────────────
 
-    # Read IPs from white_master
-    # TODO: deduplicated sorting again
-    all_entries = sorted(white_master.keys())
+def _is_valid_ip(value: str) -> bool:
+    """Return True if value is a valid IPv4 or IPv6 address."""
+    try:
+        ipaddress.ip_address(value)
+        return True
+    except ValueError:
+        return False
 
-    # Load existing XML
-    tree = ET.parse(XML_FILE)
-    root = tree.getroot()
 
-    # Find or create <rules_custom>
-    rules_custom = root.find("rules_custom")
-    if rules_custom is None:
-        rules_custom = ET.SubElement(root, "rules_custom")
+def _sort_key_ip_or_domain(value: str):
+    """
+    Natural sort key that handles both IPs and domain strings.
+    IPs sort numerically; domains sort lexicographically (lowercased).
+    """
+    try:
+        return (0, int(ipaddress.ip_address(value)))
+    except ValueError:
+        return (1, value.lower())
 
-    # Remove old USER items
-    for item in list(rules_custom.findall("item")):
-        if item.attrib.get("name", "").startswith(f"{USER_ITEM_NAME}_"):
-            rules_custom.remove(item)
 
-    # Add new items
-    for i in range(0, len(all_entries), GROUP_SIZE):
-        chunk = all_entries[i:i + GROUP_SIZE]
-        
-        # Format each entry in the chunk to include the port
-        formatted_rule = ";".join([f"{entry}:443" for entry in chunk])
-        
-        ET.SubElement(
-            rules_custom,
-            "item",
-            name=f"{USER_ITEM_NAME}_{i // GROUP_SIZE + 1}",
-            rule=formatted_rule,
-            protocol="6",
-            # apps=r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
-            apps=r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-            is_enabled="true"
-        )
-        # TODO: can i add newline \n here?
+def _indent(elem, level=0):
+    """Pretty-print an ElementTree in-place."""
+    pad = "\n" + level * "    "
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = pad + "    "
+        for child in elem:
+            _indent(child, level + 1)
+        # last child tail
+        if not child.tail or not child.tail.strip():
+            child.tail = pad
+    if level and (not elem.tail or not elem.tail.strip()):
+        elem.tail = pad
 
-    # TODO: create block ip item
-    # for i in range(0, len(all_entries), gruop_size):
-    #     chunk = all_entries[i:i+gruop_size]
-    #     item_name = f"{user_item_name}_{i // gruop_size + 1}"
-    #     ip_list = ";".join(chunk)
-    #     ET.SubElement(
-    #         rules_custom,
-    #         "item",
-    #         name=item_name,
-    #         rule=ip_list,
-    #         is_block="true",
-    #         is_enabled="true"
-    #     )    
 
-    # Pretty print
-    # TODO: use argument to determine do this or not
-    def indent(elem, level=0):
-        i = "\n" + level * "    "
-        if len(elem):
-            if not elem.text or not elem.text.strip():
-                elem.text = i + "    "
-            for child in elem:
-                indent(child, level + 1)
-            if not child.tail or not child.tail.strip():
-                child.tail = i
-        if level and (not elem.tail or not elem.tail.strip()):
-            elem.tail = i
+# ── 1. update_dns_master ──────────────────────────────────────────────────────
 
-    indent(root)
+def update_dns_master():
+    """
+    Fetch current Windows DNS client cache via WMI and merge it into
+    dns-master.csv.  Records whose Data field is None are skipped.
+    Keys are kept in their original case (no .lower()) to avoid
+    clobbering mixed-case entries, but deduplication is case-insensitive.
+    """
+    PATH_DATA.mkdir(parents=True, exist_ok=True)
 
-    # Write file
-    tree.write(XML_FILE, encoding="utf-8", xml_declaration=True)
+    # ── fetch live cache ──
+    c = wmi.WMI(namespace="root\\StandardCimv2")
+    dns_records = c.query("SELECT * FROM MSFT_DNSClientCache")
 
-    group_count = (len(all_entries) + GROUP_SIZE - 1) // GROUP_SIZE
-    print(f"Success! {len(all_entries)} IPs → {group_count} rules")
-    print(f"Output File: {XML_FILE}")
+    # ── load existing master ──
+    # Key: (entry_lower, data_lower)  →  row list
+    master_records: dict[tuple, list] = {}
+
+    if PATH_DNS_MASTER.exists():
+        with PATH_DNS_MASTER.open("r", newline="", encoding="utf-8") as f:
+            reader = csv.reader(f)
+            next(reader, None)
+            for row in reader:
+                # TODO: necessary check?
+                if len(row) >= 3:
+                    key = (row[0].lower(), row[2].lower())
+                    master_records[key] = row
+
+    # ── merge new records ──
+    new_count = 0
+    skipped_none = 0
+
+    for record in dns_records:
+        # Guard: some CNAME / SOA records have Data == None
+        if record.Data is None:
+            skipped_none += 1
+            continue
+
+        # TODO: Make sure / tranform to string
+        key = (record.Entry.lower(), record.Data.lower())
+
+        if key not in master_records:
+            new_count += 1
+            print(f"  {GREEN}+{RESET} New: {record.Entry!r:40s}  →  {record.Data}")
+
+        # Always refresh TTL to the most recent snapshot
+        # TODO: overrite > exam key value first, if different, why?
+        master_records[key] = [record.Entry, record.Type, record.Data, record.TimeToLive]
+
+    # ── sort: domains lexicographically (case-insensitive), IPs numerically ──
+    def _row_sort_key(row):
+        return _sort_key_ip_or_domain(row[0])
+
+    sorted_rows = sorted(master_records.values(), key=_row_sort_key)
+
+    # ── write ──
+    with PATH_DNS_MASTER.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(["Entry", "RecordType", "Data", "TimeToLive"])
+        writer.writerows(sorted_rows)
+
+    print(f"\n{BOLD}DNS Master{RESET}: +{new_count} new  |  {skipped_none} skipped (None Data)"
+          f"  |  {len(sorted_rows)} total")
+    print(f"Output: {PATH_DNS_MASTER}")
+    print("─" * 60)
+
+    return sorted_rows
+
+
+# ── 2. update_white_master ────────────────────────────────────────────────────
 
 def update_white_master(dns_master):
     """
-    Build ip-white-list-master.csv from:
-      - dns-cache-master.csv (A records only)
-      - minus ip-white-list-exclusion.csv
-      - plus ip-white-list-manual.csv (manual overrides)
-    Output: [Reason, IP]
+    Build ip-white-master.csv from:
+      dns-master (A records only)
+      - ip-black-manual   (IP blacklist overrides; black wins)
+      - black domains     (domain blacklist; black wins)
+      + ip-white-manual   (manual IP overrides; white manual wins over DNS,
+                           but loses to black)
+
+    Output columns: [Reason, IP]
+    Returns: dict  {ip: reason}
     """
+    PATH_DATA.mkdir(parents=True, exist_ok=True)
 
-    # Load black IPs
-    black_ips = set()
-
+    # ── load black IPs ──
+    black_ips: set[str] = set()
     if PATH_BLACK_MANUAL.exists():
         with PATH_BLACK_MANUAL.open("r", newline="", encoding="utf-8") as f:
             reader = csv.reader(f)
             next(reader, None)
             for row in reader:
                 if len(row) >= 2:
-                    black_ips.add(row[1].strip())
+                    ip = row[1].strip()
+                    if ip:
+                        black_ips.add(ip)
 
-    # TODO: Load black domains
-    black_domain = set()
+    # ── load black domains ──
+    # Convention: ip-black-manual rows with *no* IP column are domain entries.
+    # Alternatively deduce from the Reason column; here we treat col[0] as
+    # the domain when col[1] is empty / missing.
+    black_domains: set[str] = set()
+    if PATH_BLACK_MANUAL.exists():
+        with PATH_BLACK_MANUAL.open("r", newline="", encoding="utf-8") as f:
+            reader = csv.reader(f)
+            next(reader, None)
+            for row in reader:
+                if len(row) == 1 or (len(row) >= 2 and not row[1].strip()):
+                    domain = row[0].strip().lower()
+                    if domain:
+                        black_domains.add(domain)
 
-    # Build whitelist from DNS
-    white_records = {}
+    # ── build whitelist from DNS A records ──
+    white_records: dict[str, str] = {}   # ip → reason (first domain wins)
+    duplicate_log: list[tuple] = []       # [(ip, existing_reason, new_reason)]
 
     for row in dns_master:
-        # TODO: is this check necessary? [Entry, Data] seems works as well?
         if len(row) < 4:
             continue
 
         entry, record_type, data, _ttl = row
 
-        # Only A records
+        # A records only (type == 1)
         if str(record_type) != "1":
             continue
 
-        # exclude
-        ip = data.strip()
+        ip = data.strip() if data else ""
+        if not ip or not _is_valid_ip(ip):
+            continue
+
+        # Skip blacklisted IPs
         if ip in black_ips:
             continue
-        # TODO:
-        # if entry in black_domain:
-        #     continue
 
-        # Deduplicate by IP (first DNS reason wins for now)        
+        # Skip blacklisted domains
+        if entry.lower() in black_domains:
+            continue
+
         if ip not in white_records:
             white_records[ip] = entry
-        
-        # TODO: Detect same IP reason
-        # if ip in white_records:
-        #     white_records[ip] == entry ? if not, why?
+        else:
+            # Same IP resolved from a different domain name — log it
+            if white_records[ip] != entry:
+                duplicate_log.append((ip, white_records[ip], entry))
 
-    # Merge manual whitelist (OVERRIDE)
+    # ── report same-IP / different-domain entries ──
+    if duplicate_log:
+        print(f"\n{YELLOW}⚠  Same IP → multiple domains:{RESET}")
+        for ip, existing, new in duplicate_log:
+            print(f"   {ip:<18}  kept={existing!r}  also={new!r}")
+
+    # ── merge manual whitelist (manual always beats DNS, but loses to black) ──
     if PATH_WHITE_MANUAL.exists():
         with PATH_WHITE_MANUAL.open("r", newline="", encoding="utf-8") as f:
             reader = csv.reader(f)
             next(reader, None)
             for row in reader:
-                if len(row) >= 2:
-                    reason = row[0].strip()
-                    ip = row[1].strip()
+                if len(row) < 2:
+                    continue
+                reason = row[0].strip()
+                ip     = row[1].strip()
+                if not ip:
+                    continue
+                if ip in black_ips:
+                    print(f"  {RED}✗{RESET} Manual white IP {ip} overridden by black list")
+                    continue
+                if reason.lower() in black_domains:
+                    print(f"  {RED}✗{RESET} Manual white domain {reason} overridden by black domain list")
+                    continue
+                white_records[ip] = reason
 
-                    # White manual lose black manual
-                    if ip in black_ips:
-                        continue
-                    # TODO:
-                    # if entry in black_domain:
-                    #     continue
+    # ── write ──
+    # PATH_WHITE_MASTER is always created (even if it didn't exist before)
+    sorted_white = sorted(white_records.items(), key=lambda x: _sort_key_ip_or_domain(x[0]))
 
-                    # Manual always wins
-                    white_records[ip] = reason
-
-    # Write master whitelist
-    # TODO: create one if no existed file
     with PATH_WHITE_MASTER.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(["Reason", "IP"])
-        for ip, reason in sorted(white_records.items(), key=lambda x: x[0]):
+        for ip, reason in sorted_white:
             writer.writerow([reason, ip])
 
-    print(f"White list entries: {len(white_records)}")
-    print(f"Output File: {PATH_WHITE_MASTER}")
-    print("----------------------------------------------------")
+    print(f"\n{BOLD}White Master{RESET}: {len(white_records)} entries"
+          f"  |  {len(black_ips)} black IPs  |  {len(black_domains)} black domains")
+    print(f"Output: {PATH_WHITE_MASTER}")
+    print("─" * 60)
 
     return white_records
-    
-def update_dns_master():
-    # Fetch current DNS Cache via WMI
-    c = wmi.WMI(namespace="root\\StandardCimv2")
-    dns_records = c.query("SELECT * FROM MSFT_DNSClientCache")
-    
-    # Use a Dictionary for Deduplication
-    # Key: (Entry, Data) -> Value: [Entry, Type, Data, TimeToLive]
-    master_records = {}
 
-    # Load existing data first (if file exists)
-    if PATH_DNS_MASTER.exists():
-        with PATH_DNS_MASTER.open("r", newline="", encoding="utf-8") as f:
+
+# ── 3. create_simplewall_profile ──────────────────────────────────────────────
+
+def create_simplewall_profile(white_master: dict, black_master: dict | None = None,
+                               pretty: bool = True):
+    """
+    (Re-)write the <rules_custom> section of profile.xml:
+      • white_<n>  — ALLOW rules for whitelisted IPs (port 443, Chrome)
+      • block_<n>  — BLOCK rules for blacklisted IPs  (all ports)
+
+    Args:
+        white_master: {ip: reason}
+        black_master: {ip: reason} or None
+        pretty:       indent XML output (default True, override via --no-pretty)
+    """
+    if not XML_FILE.exists():
+        raise FileNotFoundError(f"profile.xml not found: {XML_FILE}")
+
+    # ── deduplicate + sort IPs ──
+    white_entries = sorted(set(white_master.keys()), key=_sort_key_ip_or_domain)
+    black_entries = sorted(set(black_master.keys()), key=_sort_key_ip_or_domain) \
+                   if black_master else []
+
+    # ── parse XML ──
+    tree = ET.parse(XML_FILE)
+    root = tree.getroot()
+
+    rules_custom = root.find("rules_custom")
+    if rules_custom is None:
+        rules_custom = ET.SubElement(root, "rules_custom")
+
+    # Remove all previously generated items (white_* and block_*)
+    for item in list(rules_custom.findall("item")):
+        name = item.attrib.get("name", "")
+        if name.startswith(f"{USER_ITEM_NAME}_") or name.startswith(f"{BLOCK_ITEM_NAME}_"):
+            rules_custom.remove(item)
+
+    # ── add ALLOW rules ──
+    for i in range(0, len(white_entries), GROUP_SIZE):
+        chunk = white_entries[i:i + GROUP_SIZE]
+        rule  = ";".join(f"{ip}:443" for ip in chunk)
+
+        item = ET.SubElement(
+            rules_custom, "item",
+            name=f"{USER_ITEM_NAME}_{i // GROUP_SIZE + 1}",
+            rule=rule,
+            protocol="6",
+            apps=r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+            is_enabled="true",
+        )
+        # Add a trailing newline after each item for readability in raw XML
+        item.tail = "\n"
+
+    # ── add BLOCK rules ──
+    for i in range(0, len(black_entries), GROUP_SIZE):
+        chunk = black_entries[i:i + GROUP_SIZE]
+        rule  = ";".join(chunk)           # no port restriction — block all
+
+        item = ET.SubElement(
+            rules_custom, "item",
+            name=f"{BLOCK_ITEM_NAME}_{i // GROUP_SIZE + 1}",
+            rule=rule,
+            is_block="true",
+            is_enabled="true",
+        )
+        item.tail = "\n"
+
+    # ── pretty-print ──
+    if pretty:
+        _indent(root)
+
+    # ── write ──
+    tree.write(XML_FILE, encoding="utf-8", xml_declaration=True)
+
+    w_groups = (len(white_entries) + GROUP_SIZE - 1) // GROUP_SIZE
+    b_groups = (len(black_entries) + GROUP_SIZE - 1) // GROUP_SIZE
+
+    print(f"\n{BOLD}{GREEN}✓ Simplewall profile updated{RESET}")
+    print(f"  ALLOW: {len(white_entries)} IPs  →  {w_groups} rules  ({USER_ITEM_NAME}_*)")
+    if black_entries:
+        print(f"  BLOCK: {len(black_entries)} IPs  →  {b_groups} rules  ({BLOCK_ITEM_NAME}_*)")
+    print(f"Output: {XML_FILE}")
+    print("─" * 60)
+
+
+# ── 4. load_black_master (helper) ─────────────────────────────────────────────
+
+def load_black_master() -> dict[str, str]:
+    """Return {ip: reason} for all entries in ip-black-manual.csv."""
+    result: dict[str, str] = {}
+    if PATH_BLACK_MANUAL.exists():
+        with PATH_BLACK_MANUAL.open("r", newline="", encoding="utf-8") as f:
             reader = csv.reader(f)
-            next(reader, None)  # Skip header
+            next(reader, None)
             for row in reader:
-                if len(row) >= 3:
-                    # Create a unique key using (Entry, Data)
-                    key = (row[0].lower(), row[2].lower())
-                    master_records[key] = row
+                if len(row) >= 2 and row[1].strip():
+                    ip     = row[1].strip()
+                    reason = row[0].strip()
+                    result[ip] = reason
+    return result
 
-    # Merge new data
-    new_count = 0
-    for record in dns_records:
-        # TODO: fixed the problen when encounter numeric instead of alphabet, but still normalized
-        # key = (record.Entry.lower(), record.Data.lower())
-        key = (record.Entry, record.Data)
-        if key not in master_records:
-            new_count += 1
-            print(f"{key}")
-        
-        # This will update the TTL to the most recent capture
-        # TODO: maybe not necessary? only add new entry is enough?
-        master_records[key] = [record.Entry, record.Type, record.Data, record.TimeToLive]
 
-    # Sort by Entry name
-    # sorted_rows = sorted(master_records.values(), key=lambda x: x[0].lower())
-    # TODO: deal with numerical
-    sorted_rows = sorted(master_records.values(), key=lambda x: x[0])
-
-    # Write back to the same file
-    with PATH_DNS_MASTER.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow(["Entry", "RecordType", "Data", "TimeToLive"])
-        writer.writerows(sorted_rows)
-            
-    print(f"Added {new_count} new unique pairs. Total unique entries: {len(sorted_rows)}")
-    print(f"Output File: {PATH_DNS_MASTER}")
-    print("----------------------------------------------------")
-    return sorted_rows
+# ── CLI entry-point ───────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    # 1. update dns-master with current dns cache 
-    dns_master = update_dns_master()
+    parser = argparse.ArgumentParser(
+        description="IP filter pipeline: DNS → whitelist → Simplewall profile"
+    )
+    parser.add_argument(
+        "--no-pretty", action="store_true",
+        help="Skip XML indentation (faster write)"
+    )
+    parser.add_argument(
+        "--skip-dns", action="store_true",
+        help="Skip DNS cache update (use existing dns-master.csv)"
+    )
+    args = parser.parse_args()
 
-    # 2. (Optional)
-    # Mannualy update ip-black-manual.csv, ip-white-manual.csv
+    # 1. Update dns-master with current DNS cache
+    if args.skip_dns:
+        print(f"{YELLOW}Skipping DNS update — loading existing {PATH_DNS_MASTER.name}{RESET}")
+        dns_master = []
+        if PATH_DNS_MASTER.exists():
+            with PATH_DNS_MASTER.open("r", newline="", encoding="utf-8") as f:
+                reader = csv.reader(f)
+                next(reader, None)
+                dns_master = list(reader)
+    else:
+        dns_master = update_dns_master()
 
-    # 3. update ip-white-master with [dns-master + ip-white-manual - ip-black-manual]    
+    # 2. (Optional) Manually edit ip-black-manual.csv / ip-white-manual.csv
+
+    # 3. Build ip-white-master
     white_master = update_white_master(dns_master)
 
-    # 4. recreate simplewall profile with ip-white-list-master
-    # Simple tool to configure Windows Filtering Platform (WFP) which can configure network activity on your computer.
-    create_simplewall_profile(white_master)
+    # 4. Load black master (for block rules in profile)
+    black_master = load_black_master()
 
+    # 5. Recreate Simplewall profile
+    # create_simplewall_profile(
+    #     white_master,
+    #     black_master=black_master,
+    #     pretty=not args.no_pretty,
+    # )

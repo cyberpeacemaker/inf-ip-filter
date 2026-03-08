@@ -1,7 +1,14 @@
 # top
-- ask ai to finish `_inf_ip_filter.py`
+- overrite > exam key value, if different, why?
 - todo extension
 - ip-black-mannual
+- think new framework (black domain)-> test
+    # ── load black domains ──
+    # Convention: ip-black-manual rows with *no* IP column are domain entries.
+    # Alternatively deduce from the Reason column; here we treat col[0] as
+    # the domain when col[1] is empty / missing.
+
+
 # Ask AI
 - same ip from different name. ex: 13.107.213.73
 - ai: browser hijacking > mitb
@@ -17,10 +24,12 @@
 - Real Intelligence Threat Analytics, zeek, snort, yara
 
 # script
-- check dns-cache before adding to whitelist
 - extract distinguished domain name in dns-cache
 - sort data (ip-white-exclude, ip-white-mannual)
 - ip-black-mannual reason modify
+- dns-cache-ipconfig parser (psutil cmd command)
+
+
 
 - dns-latest
 - exclude or exclusion
