@@ -1,16 +1,9 @@
 # top
 - overrite > exam key value, if different, why?
-- todo extension
 - ip-black-mannual
-- think new framework (black domain)-> test
-    # ── load black domains ──
-    # Convention: ip-black-manual rows with *no* IP column are domain entries.
-    # Alternatively deduce from the Reason column; here we treat col[0] as
-    # the domain when col[1] is empty / missing.
 
 
 # Ask AI
-- same ip from different name. ex: 13.107.213.73
 - ai: browser hijacking > mitb
 - Windows telemetry, tracking/telemetry
 - malwarebytes

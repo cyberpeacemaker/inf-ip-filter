@@ -10,3 +10,6 @@ raw.githubusercontent.com,1,185.199.108.133,2158
 
 # Google content server
 216.239.36.21
+
+# CDN example
+13.107.213.73

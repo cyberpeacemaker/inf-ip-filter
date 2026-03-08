@@ -148,26 +148,16 @@ def update_white_master(dns_master, mode):
     """
     PATH_DATA.mkdir(parents=True, exist_ok=True)
 
-    # ── load existing whitelist (NEW) ──
-    # This prevents re-prompting for IPs already processed in previous runs
-    white_records: dict[str, str] = {}
-    if PATH_WHITE_MASTER.exists():
-        with PATH_WHITE_MASTER.open("r", newline="", encoding="utf-8") as f:
-            reader = csv.reader(f)
-            next(reader, None)  # Skip header
-            for row in reader:
-                if len(row) >= 2:
-                    reason, ip = row[0].strip(), row[1].strip()
-                    if ip:
-                        white_records[ip] = reason
-
-    # ── load black IPs and domains (Same as before) ──
+    # ── load black IPs and domains ──
     black_ips: set[str] = set()
     black_domains: set[str] = set()
+
+    # 1. Load from ip-black-manual.csv (IPs and Domains)
     if PATH_BLACK_MANUAL.exists():
         with PATH_BLACK_MANUAL.open("r", newline="", encoding="utf-8") as f:
             reader = csv.reader(f)
             next(reader, None)
+            # TODO: Maybe simplify here
             for row in reader:
                 if len(row) >= 2:
                     ip = row[1].strip()
@@ -181,6 +171,34 @@ def update_white_master(dns_master, mode):
                     domain = row[0].strip().lower()
                     if domain:
                         black_domains.add(domain)
+
+    # 2. Load from ip-black-domain.csv (Explicit Domain list)
+    if PATH_BLACK_DOMAIN.exists():
+        with PATH_BLACK_DOMAIN.open("r", newline="", encoding="utf-8") as f:
+            reader = csv.reader(f)
+            next(reader, None) # Skip header "Reason, Domain"
+            for row in reader:
+                if len(row) >= 2:
+                    domain = row[1].strip().lower() # Domain is in the second column
+                    if domain:
+                        black_domains.add(domain)
+
+    # ── load existing whitelist ──
+    # This prevents re-prompting for IPs already processed in previous runs
+    white_records: dict[str, str] = {}
+    if PATH_WHITE_MASTER.exists():
+        with PATH_WHITE_MASTER.open("r", newline="", encoding="utf-8") as f:
+            reader = csv.reader(f)
+            next(reader, None)  # Skip header
+            for row in reader:
+                if len(row) >= 2:
+                    reason, ip = row[0].strip(), row[1].strip()                    
+                    # Only load if neither the IP nor the original Reason (Domain) is blacklisted
+                    if ip and ip not in black_ips and reason.lower() not in black_domains:
+                        white_records[ip] = reason
+                    elif ip:
+                        print(f"  {RED}!{RESET} Removing {ip} ({reason}) from master - now blacklisted")
+
 
     # ── build/update whitelist from DNS A records ──
     duplicate_log: list[tuple] = []
@@ -220,16 +238,19 @@ def update_white_master(dns_master, mode):
             else:
                 # Add automatically if batch mode or yes_to_all is active
                 white_records[ip] = entry
-        else:
-            # If IP exists but domain is different, log it for awareness
-            if white_records[ip] != entry:
-                duplicate_log.append((ip, white_records[ip], entry))
+        
+        # TODO: thinking
+        # else:
+        #     # If IP exists but domain is different, log it for awareness
+        #     if white_records[ip] != entry:
+        #         duplicate_log.append((ip, white_records[ip], entry))
 
-    # ── report same-IP / different-domain entries ──
-    if duplicate_log:
-        print(f"\n{YELLOW}⚠  Same IP → multiple domains:{RESET}")
-        for ip, existing, new in duplicate_log:
-            print(f"   {ip:<18}  kept={existing!r}  also={new!r}")
+    # TODO: thinking
+    # # ── report same-IP / different-domain entries ──
+    # if duplicate_log:
+    #     print(f"\n{YELLOW}⚠  Same IP → multiple domains:{RESET}")
+    #     for ip, existing, new in duplicate_log:
+    #         print(f"   {ip:<18}  kept={existing!r}  also={new!r}")
 
     # ── merge manual whitelist overrides ──
     if PATH_WHITE_MANUAL.exists():
