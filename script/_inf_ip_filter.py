@@ -141,24 +141,29 @@ def update_dns_master():
     return sorted_rows
 
 
-# ── 2. update_white_master ────────────────────────────────────────────────────
-
 def update_white_master(dns_master, mode):
     """
-    Build ip-white-master.csv from:
-      dns-master (A records only)
-      - ip-black-manual   (IP blacklist overrides; black wins)
-      - black domains     (domain blacklist; black wins)
-      + ip-white-manual   (manual IP overrides; white manual wins over DNS,
-                           but loses to black)
-
-    Output columns: [Reason, IP]
-    Returns: dict  {ip: reason}
+    Build ip-white-master.csv by loading existing records first, 
+    then merging new DNS A records and manual overrides.
     """
     PATH_DATA.mkdir(parents=True, exist_ok=True)
 
-    # ── load black IPs ──
+    # ── load existing whitelist (NEW) ──
+    # This prevents re-prompting for IPs already processed in previous runs
+    white_records: dict[str, str] = {}
+    if PATH_WHITE_MASTER.exists():
+        with PATH_WHITE_MASTER.open("r", newline="", encoding="utf-8") as f:
+            reader = csv.reader(f)
+            next(reader, None)  # Skip header
+            for row in reader:
+                if len(row) >= 2:
+                    reason, ip = row[0].strip(), row[1].strip()
+                    if ip:
+                        white_records[ip] = reason
+
+    # ── load black IPs and domains (Same as before) ──
     black_ips: set[str] = set()
+    black_domains: set[str] = set()
     if PATH_BLACK_MANUAL.exists():
         with PATH_BLACK_MANUAL.open("r", newline="", encoding="utf-8") as f:
             reader = csv.reader(f)
@@ -168,50 +173,38 @@ def update_white_master(dns_master, mode):
                     ip = row[1].strip()
                     if ip:
                         black_ips.add(ip)
-
-    # ── load black domains ──
-    # Convention: ip-black-manual rows with *no* IP column are domain entries.
-    # Alternatively deduce from the Reason column; here we treat col[0] as
-    # the domain when col[1] is empty / missing.
-    black_domains: set[str] = set()
-    if PATH_BLACK_MANUAL.exists():
-        with PATH_BLACK_MANUAL.open("r", newline="", encoding="utf-8") as f:
-            reader = csv.reader(f)
-            next(reader, None)
-            for row in reader:
-                if len(row) == 1 or (len(row) >= 2 and not row[1].strip()):
+                    else:
+                        domain = row[0].strip().lower()
+                        if domain:
+                            black_domains.add(domain)
+                elif len(row) == 1:
                     domain = row[0].strip().lower()
                     if domain:
                         black_domains.add(domain)
 
-    # ── build whitelist from DNS A records ──
-    white_records: dict[str, str] = {}   # ip → reason (first domain wins)
-    duplicate_log: list[tuple] = []       # [(ip, existing_reason, new_reason)]
-    yes_to_all = False  # Track if the user has opted to skip remaining prompts
+    # ── build/update whitelist from DNS A records ──
+    duplicate_log: list[tuple] = []
+    yes_to_all = False 
+
     for row in dns_master:
-        if len(row) < 4:
+        if len(row) < 3: # Changed to 3 based on your DNS writer logic
             continue
 
-        entry, record_type, data, _ttl = row
+        entry, record_type, data = row[0], row[1], row[2]
 
-        # A records only (type == 1)
-        if str(record_type) != "1":
+        if str(record_type) != "1": # A records only
             continue
 
         ip = data.strip() if data else ""
         if not ip or not _is_valid_ip(ip):
             continue
 
-        # Skip blacklisted IPs
-        if ip in black_ips:
+        # Skip if already in blacklists
+        if ip in black_ips or entry.lower() in black_domains:
             continue
 
-        # Skip blacklisted domains
-        if entry.lower() in black_domains:
-            continue
-
+        # Process if IP is NEW (not in loaded white_records)
         if ip not in white_records:
-            # Check if we should prompt or if "yes to all" was previously selected
             if mode == "interactive" and not yes_to_all:
                 choice = _prompt_ip(ip, entry)
                 
@@ -219,16 +212,16 @@ def update_white_master(dns_master, mode):
                     white_records[ip] = entry
                 elif choice == "a":
                     white_records[ip] = entry
-                    yes_to_all = True  # Set flag to True to skip future prompts
+                    yes_to_all = True
                     print(f"  {GREEN}>>{RESET} Yes to all selected. Processing remaining entries...")
                 elif choice == "b":
                     black_domains.add(entry.lower())
-                    # TODO:... (persistence logic) ...
+                    # Optionally: write to PATH_BLACK_MANUAL here
             else:
-                # This executes if mode is "batch" OR if yes_to_all is True
+                # Add automatically if batch mode or yes_to_all is active
                 white_records[ip] = entry
         else:
-            # Same IP resolved from a different domain name — log it
+            # If IP exists but domain is different, log it for awareness
             if white_records[ip] != entry:
                 duplicate_log.append((ip, white_records[ip], entry))
 
@@ -238,35 +231,24 @@ def update_white_master(dns_master, mode):
         for ip, existing, new in duplicate_log:
             print(f"   {ip:<18}  kept={existing!r}  also={new!r}")
 
-    # ── merge manual whitelist (manual always beats DNS, but loses to black) ──
+    # ── merge manual whitelist overrides ──
     if PATH_WHITE_MANUAL.exists():
         with PATH_WHITE_MANUAL.open("r", newline="", encoding="utf-8") as f:
             reader = csv.reader(f)
             next(reader, None)
             for row in reader:
-                if len(row) < 2:
-                    continue
-                reason = row[0].strip()
-                ip     = row[1].strip()
-                if not ip:
-                    continue
-                if ip in black_ips:
-                    print(f"  {RED}✗{RESET} Manual white IP {ip} overridden by black list")
-                    continue
-                if reason.lower() in black_domains:
-                    print(f"  {RED}✗{RESET} Manual white domain {reason} overridden by black domain list")
+                if len(row) < 2: continue
+                reason, ip = row[0].strip(), row[1].strip()
+                if not ip or ip in black_ips or reason.lower() in black_domains:
                     continue
                 white_records[ip] = reason
 
-    # ── write ──
-    # PATH_WHITE_MASTER is always created (even if it didn't exist before)
+    # ── write combined master ──
     sorted_white = sorted(white_records.items(), key=lambda x: _sort_key_ip_or_domain(x[0]))
-
     with PATH_WHITE_MASTER.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(["Reason", "IP"])
-        for ip, reason in sorted_white:
-            writer.writerow([reason, ip])
+        writer.writerows([[reason, ip] for ip, reason in sorted_white])
 
     print(f"\n{BOLD}White Master{RESET}: {len(white_records)} entries"
           f"  |  {len(black_ips)} black IPs  |  {len(black_domains)} black domains")
