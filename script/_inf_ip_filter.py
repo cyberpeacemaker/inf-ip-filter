@@ -28,6 +28,14 @@ BLOCK_ITEM_NAME= "block"
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
+def _prompt_ip(ip, entry) -> str:
+    """Returns 'y', 'n', or 'b'."""
+    print(f"\n  {CYAN}{ip:<18}{RESET}  ←  {entry}")
+    while True:
+        choice = input("  Add to whitelist? [y]es / [n]o / [b]lock domain: ").strip().lower()
+        if choice in ("y", "n", "b"):
+            return choice
+        
 def _is_valid_ip(value: str) -> bool:
     """Return True if value is a valid IPv4 or IPv6 address."""
     try:
@@ -87,7 +95,6 @@ def update_dns_master():
             reader = csv.reader(f)
             next(reader, None)
             for row in reader:
-                # TODO: necessary check?
                 if len(row) >= 3:
                     key = (row[0].lower(), row[2].lower())
                     master_records[key] = row
@@ -101,17 +108,16 @@ def update_dns_master():
         if record.Data is None:
             skipped_none += 1
             continue
-
-        # TODO: Make sure / tranform to string
+        
         key = (record.Entry.lower(), record.Data.lower())
 
         if key not in master_records:
             new_count += 1
             print(f"  {GREEN}+{RESET} New: {record.Entry!r:40s}  →  {record.Data}")
 
-        # Always refresh TTL to the most recent snapshot
-        # TODO: overrite > exam key value first, if different, why?
-        master_records[key] = [record.Entry, record.Type, record.Data, record.TimeToLive]
+            # No refresh TTL to the most recent snapshot
+            # master_records[key] = [record.Entry, record.Type, record.Data, record.TimeToLive]
+            master_records[key] = [record.Entry, record.Type, record.Data]
 
     # ── sort: domains lexicographically (case-insensitive), IPs numerically ──
     def _row_sort_key(row):
@@ -122,7 +128,8 @@ def update_dns_master():
     # ── write ──
     with PATH_DNS_MASTER.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
-        writer.writerow(["Entry", "RecordType", "Data", "TimeToLive"])
+        # writer.writerow(["Entry", "RecordType", "Data", "TimeToLive"])
+        writer.writerow(["Entry", "RecordType", "Data"])
         writer.writerows(sorted_rows)
 
     print(f"\n{BOLD}DNS Master{RESET}: +{new_count} new  |  {skipped_none} skipped (None Data)"
@@ -203,7 +210,16 @@ def update_white_master(dns_master):
             continue
 
         if ip not in white_records:
-            white_records[ip] = entry
+            if mode == "interactive":
+                choice = _prompt_ip(ip, entry)
+                # TODO: choice == "n"
+                if choice == "y":
+                    white_records[ip] = entry
+                elif choice == "b":
+                    black_domains.add(entry.lower())
+                    # optionally write back to ip-black-manual.csv immediately
+            else:
+                white_records[ip] = entry  # batch / skip
         else:
             # Same IP resolved from a different domain name — log it
             if white_records[ip] != entry:

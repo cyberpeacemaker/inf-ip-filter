@@ -14,8 +14,14 @@ This project develops an automated engine that monitors and validates **DNS Quer
 * **Integrity Verification:** By cross-referencing DNS resolution results with actual connection attempts, the system effectively detects and blocks **DNS Cache Poisoning** and malicious redirection attacks.
 
 # Data Usage
-- dns-master: all dns cache
-- white-master: all white-list ip
+- **dns-master**: all dns cache ([key,value] pair, including **A** and **CNAME** record)
+- **white-master**: all white-list ip (    
+    Build ip-white-master.csv from:
+      dns-master (A records only)
+      + ip-white-manual   (manual IP overrides; white manual wins over DNS, but loses to black)
+      - ip-black-domain   (domain blacklist; black wins)
+      - ip-black-manual   (IP blacklist; black wins)
+      )
 - white-manual: manual ip
 - black-manual: black ip
 
