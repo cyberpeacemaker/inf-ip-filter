@@ -29,12 +29,13 @@ BLOCK_ITEM_NAME= "block"
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _prompt_ip(ip, entry) -> str:
-    """Returns 'y', 'n', or 'b', or 'a'."""
+    """Returns 'y', 'n', 'b', 'a', 'i', or 'r'."""
     print(f"\n  {CYAN}{ip:<18}{RESET}  ←  {entry}")
     while True:
-        # Added [a]ll to the prompt string
-        choice = input("  Add to whitelist? [y]es / [n]o / [b]lock domain / yes to [a]ll: ").strip().lower()
-        if choice in ("y", "n", "b", "a"):
+        # Added [i]gnore and ignore [r]est
+        msg = "  Whitelist? [y]es / yes to [a]ll / [b]lock / [i]gnore / ignore [r]est: "
+        choice = input(msg).strip().lower()
+        if choice in ("y", "a", "b", "i", "r"):
             return choice
         
 def _is_valid_ip(value: str) -> bool:
@@ -205,7 +206,8 @@ def update_white_master(dns_master, mode):
     # ── build/update whitelist from DNS A records ──
     duplicate_log: list[tuple] = []
     yes_to_all = False 
-
+    ignore_all = False  # NEW: Track if we should ignore all remaining new IPs
+    
     for row in dns_master:
         if len(row) < 3: # Changed to 3 based on your DNS writer logic
             continue
@@ -223,9 +225,9 @@ def update_white_master(dns_master, mode):
         if ip in black_ips or entry.lower() in black_domains:
             continue
 
-        # Process if IP is NEW (not in loaded white_records)
         if ip not in white_records:
-            if mode == "interactive" and not yes_to_all:
+            # Only prompt if we aren't in a "Global" decision state
+            if mode == "interactive" and not yes_to_all and not ignore_all:
                 choice = _prompt_ip(ip, entry)
                 
                 if choice == "y":
@@ -233,12 +235,27 @@ def update_white_master(dns_master, mode):
                 elif choice == "a":
                     white_records[ip] = entry
                     yes_to_all = True
-                    print(f"  {GREEN}>>{RESET} Yes to all selected. Processing remaining entries...")
+                    print(f"  {GREEN}>>{RESET} Yes to all selected.")
                 elif choice == "b":
                     black_domains.add(entry.lower())
-                    # TODO: Optionally: write to PATH_BLACK_MANUAL here
-            else:
-                # Add automatically if batch mode or yes_to_all is active
+                    # Persist to black manual
+                    # TODO: Check
+                    with PATH_BLACK_DOMAIN.open("a", newline="", encoding="utf-8") as f:
+                        writer = csv.writer(f)
+                        writer.writerow(["manual-filter", entry])
+                elif choice == "i":
+                    print(f"  {YELLOW}>>{RESET} Ignoring {ip}")
+                    continue # Skip adding to white_records
+                elif choice == "r":
+                    ignore_all = True
+                    print(f"  {YELLOW}>>{RESET} Ignore all remaining selected.")
+                    continue
+            
+            # Logic for when not prompting
+            if yes_to_all or mode != "interactive":
+                white_records[ip] = entry
+            elif ignore_all:
+                continue # Do nothing, just move to the next DNS record
                 white_records[ip] = entry
         
         # TODO: duplicate thinking

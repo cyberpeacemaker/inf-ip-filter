@@ -1,13 +1,19 @@
 # top
+- no to all
+- switch csv colum [reason,ip]
 - overrite > exam key value, if different, why?
 - ip-black-mannual
+- blacklist-merged
+`script/_inf_create_ip_black_list.py``
+蒐集黑名單
 
+# script
+- sort data (ip-white-exclude, ip-white-mannual)
+- ip-black-mannual reason modify
+- dns-cache-ipconfig parser (psutil cmd command)
 
-# Ask AI
-- ai: browser hijacking > mitb
-- Windows telemetry, tracking/telemetry
-- malwarebytes
 # analysis
+- extract distinguished domain name in dns-cache
 - repo-analysis
   - ip/README
   - malicious ip
@@ -15,12 +21,16 @@
   - white-exclude + black-mannual
 - 02-13 dns cache
 - Real Intelligence Threat Analytics, zeek, snort, yara
+- simplewall spy 比對
+- check
+  - dns-master
+  - ip-white-master (which are allowed)
 
-# script
-- extract distinguished domain name in dns-cache
-- sort data (ip-white-exclude, ip-white-mannual)
-- ip-black-mannual reason modify
-- dns-cache-ipconfig parser (psutil cmd command)
+# Ask AI
+- ai: browser hijacking > mitb
+- Windows telemetry, tracking/telemetry
+- malwarebytes
+
 
 
 
@@ -44,19 +54,12 @@
 
 
 # white list
-`script/_inf_create_ip_white_list.py`
-檢查白名單
 
 比對黑名單跟dns catch
 - 存在 Mapping
 - 不存在
 
 # black list
-`script/_inf_create_ip_black_list.py``
-蒐集黑名單
-
-# simplewall spy
-比對
 
 #  worth futher investigation
 104.26.12.38
@@ -89,18 +92,4 @@ Xiaozhiyun+L.L.C
 - g.live.com,13.107.213.73
 
 #
-- simplewall cml?
-- debug : "PS C:\Users\sinceremony\Documents\GitHub\inf-create-ip-list\script> python .\_inf_create_ip_white_list.py
-Traceback (most recent call last):
-  File "C:\Users\sinceremony\Documents\GitHub\inf-create-ip-list\script\_inf_create_ip_white_list.py", line 201, in <module>
-    dns_master = update_dns_master()
-  File "C:\Users\sinceremony\Documents\GitHub\inf-create-ip-list\script\_inf_create_ip_white_list.py", line 95, in update_dns_master
-    key = (record.Entry.lower(), record.Data.lower())
-                                 ^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'lower'"
 - monitor **any** tcp attempt
-- folder path optimize?
-- dns catch constrcuted to assist with white-list
-- optimze dns catch
-- Dir existed check
-- change `MIN_IPS_FOR_CIDR` larger to observe more unique ips.

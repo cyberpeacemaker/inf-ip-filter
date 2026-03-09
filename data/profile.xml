@@ -51,12 +51,14 @@
     <rules_custom>
         <item name="TCP443" rule="443" protocol="6" apps="C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\githubdesktop.exe|C:\users\sinceremony\appdata\local\githubdesktop\app-3.5.4\resources\app\git\mingw64\bin\git-remote-https.exe|C:\users\sinceremony\appdata\local\line\bin\current\line.exe" is_enabled="true" />
         <item name="DoH-svc" rule="9.9.9.9:443;1.1.1.1:443;8.8.8.8:443" protocol="6" apps="C:\WINDOWS\system32\svchost.exe" is_enabled="true" />
-        <item name="white_1" rule="1.1.1.1:443;8.8.8.8:443;9.9.9.9:443;34.54.88.138:443;64.233.188.84:443;104.18.32.47:443;142.250.66.68:443;142.250.198.69:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
-        <item name="white_2" rule="172.64.155.209:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
-        <item name="block_1" rule="3.169.137.16;3.169.137.63;13.107.9.158;13.107.213.73;13.107.246.73;13.248.151.210;34.104.35.123;52.168.117.170" is_block="true" is_enabled="true" />
-        <item name="block_2" rule="76.223.31.44;150.171.22.12;150.171.27.10;150.171.27.11;150.171.28.11;173.194.174.95;175.97.131.54;199.232.214.172" is_block="true" is_enabled="true" />
-        <item name="block_3" rule="203.69.81.40;203.69.81.42;203.69.81.43;203.69.81.59;203.69.138.89;203.69.138.97;203.69.138.206;203.69.138.230" is_block="true" is_enabled="true" />
-        <item name="block_4" rule="210.71.227.168;210.71.227.200;210.71.227.202;210.71.227.209;210.71.227.210" is_block="true" is_enabled="true" />
+        <item name="white_1" rule="1.1.1.1:443;8.8.8.8:443;9.9.9.9:443;20.43.161.105:443;34.54.88.138:443;64.233.188.84:443;64.233.189.84:443;104.18.32.47:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_2" rule="142.250.66.68:443;142.250.77.5:443;142.250.157.84:443;142.250.198.67:443;142.250.198.69:443;142.250.204.33:443;142.250.204.37:443;142.250.204.46:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_3" rule="172.64.155.209:443;173.194.174.84:443;185.199.108.133:443;185.199.108.153:443;185.199.108.154:443;185.199.109.133:443;185.199.109.153:443;185.199.109.154:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="white_4" rule="185.199.110.133:443;185.199.110.153:443;185.199.110.154:443;185.199.111.133:443;185.199.111.153:443;185.199.111.154:443" protocol="6" apps="C:\Program Files\Google\Chrome\Application\chrome.exe" is_enabled="true" />
+        <item name="block_1" rule="3.169.137.16;3.169.137.63;13.107.9.158;13.107.246.73;13.248.151.210;34.104.35.123;52.168.117.170;76.223.31.44" is_block="true" is_enabled="true" />
+        <item name="block_2" rule="150.171.22.12;150.171.27.10;150.171.27.11;150.171.28.11;173.194.174.95;175.97.131.54;199.232.214.172;203.69.81.40" is_block="true" is_enabled="true" />
+        <item name="block_3" rule="203.69.81.42;203.69.81.43;203.69.81.59;203.69.138.89;203.69.138.97;203.69.138.206;203.69.138.230;210.71.227.168" is_block="true" is_enabled="true" />
+        <item name="block_4" rule="210.71.227.200;210.71.227.202;210.71.227.209;210.71.227.210" is_block="true" is_enabled="true" />
     </rules_custom>
     <rules_config>
         <item name="WS-Discovery [events]" is_enabled="false" />

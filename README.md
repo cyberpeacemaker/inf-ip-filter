@@ -66,3 +66,26 @@ This project develops an automated engine that monitors and validates **DNS Quer
 * **自動化動態批審：** 即時分析 DNS 請求，動態更新防火牆規則，兼顧安全性與管理便利性。
 * **通訊行為溯源：** 透過日誌留存技術，精確紀錄「連線 IP」與「初始 DNS 請求」的關聯，解決 **Reverse DNS Lookup** 常因解析失敗而無法回溯行為原因的問題。
 * **安全性強化：** 藉由對比 DNS 解析結果與實際通訊目標，有效偵測並防止 **DNS Poisoning（DNS 汙染）** 與惡意導向攻擊。
+
+# Demo
+
+## Part.1 Data
+- dns-master.csv
+    - EX1: reported C2: 34.104.35.123 > edgedl.me.gvt1.com
+    - EX2: virustotal 185.199.111.153 > ydnaandy123.github.io
+- [ip-white-manual.csv, ip-black-manual.csv, ip-black-domain.csv]
+    - `python .\sort-manual-file.py --col 2` sort for visual
+- ip-white-master
+    - [dns-master.csv + ip-white-manual.csv] - [ip-black-manual.csv + ip-black-domain.csv + ignored]
+- profile.xml for simplewall [Simple tool to configure Windows Filtering Platform (WFP) which can configure network activity on your computer.]
+- pcap, sysmon
+
+## Part.2 Networking
+- create ip filter
+- show connected ip
+
+## Part.3 Packet Capture
+- sslkey
+- ipconfig
+- wireshakr > zeek > rita
+- sysmon

@@ -42,4 +42,5 @@ def extract_unique_domains(file_path: Path):
     return sorted_domains
 
 if __name__ == "__main__":
+    # TODO: path arg
     extract_unique_domains(PATH_WHITE_MASTER)

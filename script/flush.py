@@ -24,7 +24,7 @@ def refresh_data(archive_tag=None):
     # 1. Archiving Logic
     if archive_tag:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        rotation_folder = PATH_ARCHIVE_ROOT / f"rotation-{archive_tag}-{timestamp}"
+        rotation_folder = PATH_ARCHIVE_ROOT / f"rotation-{timestamp}-{archive_tag}"
         rotation_folder.mkdir(parents=True, exist_ok=True)
         
         print(f"Archiving to: {rotation_folder.name}")
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--archive", 
         metavar="TAG",
-        help="Archive current data into __archive__/rotation-TAG-timestamp/ before cleaning."
+        help="Archive current data into __archive__/rotation-timestamp-TAG/ before cleaning."
     )
     
     args = parser.parse_args()
