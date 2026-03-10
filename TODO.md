@@ -1,6 +1,5 @@
 # top
-- no to all
-- switch csv colum [reason,ip]
+- inf_pacet_log why event id 3 no chrome?
 - overrite > exam key value, if different, why?
 - ip-black-mannual
 - blacklist-merged

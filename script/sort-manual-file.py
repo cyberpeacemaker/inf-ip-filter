@@ -8,7 +8,8 @@ PATH_DATA         = Path(__file__).resolve().parent.parent / "data"
 PATH_WHITE_MANUAL = PATH_DATA / "ip-white-manual.csv"
 PATH_BLACK_MANUAL = PATH_DATA / "ip-black-manual.csv"
 PATH_BLACK_DOMAIN = PATH_DATA / "ip-black-domain.csv"
-
+PATH_DNS_MASTER   = PATH_DATA / "dns-master.csv"
+PATH_WHITE_MASTER = PATH_DATA / "ip-white-master.csv"
 def _sort_key(row, col_index=0):
     """
     Sort logic:
@@ -62,7 +63,7 @@ if __name__ == "__main__":
 
     print(f"Sorting files by column {args.col}...")
     
-    files_to_process = [PATH_WHITE_MANUAL, PATH_BLACK_MANUAL, PATH_BLACK_DOMAIN]
+    files_to_process = [PATH_DNS_MASTER, PATH_WHITE_MANUAL, PATH_BLACK_MANUAL, PATH_BLACK_DOMAIN, PATH_WHITE_MASTER]
     
     for p in files_to_process:
         process_file(p, sort_col=selected_index)

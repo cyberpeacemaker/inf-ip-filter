@@ -56,14 +56,15 @@ Stop-Process -Name chrome -ErrorAction SilentlyContinue
 
 ```
 
-### 2. Start Tshark Ring Buffer Capture
+### 2. Record metedata
 
 ```powershell
-# record metadata
 $Timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
 "--- IPCONFIG RECORDED AT $Timestamp ---" | Out-File -FilePath "C:\logs\host_config.txt" -Append
 ipconfig /all | Out-File -FilePath "C:\logs\host_config.txt" -Append
 ```
+
+### 3. Start Tshark Ring Buffer Capture
 
 Captures traffic only for your MAC address, rotating ten 100MB files.
 
@@ -75,7 +76,7 @@ Captures traffic only for your MAC address, rotating ten 100MB files.
 
 ```
 
-### 3. Export Sysmon Hunt Log (CSV)
+### 4. Export Sysmon Hunt Log (CSV)
 
 Extracts Network (ID 3) and DNS (ID 22) events into a readable spreadsheet.
 

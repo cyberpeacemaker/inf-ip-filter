@@ -78,7 +78,7 @@ This project develops an automated engine that monitors and validates **DNS Quer
 - ip-white-master
     - [dns-master.csv + ip-white-manual.csv] - [ip-black-manual.csv + ip-black-domain.csv + ignored]
 - profile.xml for simplewall [Simple tool to configure Windows Filtering Platform (WFP) which can configure network activity on your computer.]
-- pcap, sysmon
+- pcap + sslkey, sysmonhunt
 
 ## Part.2 Networking
 - create ip filter
@@ -89,3 +89,23 @@ This project develops an automated engine that monitors and validates **DNS Quer
 - ipconfig
 - wireshakr > zeek > rita
 - sysmon
+
+## 解說
+### Part.1
+- 0:45 dns-master介紹，儲存從本機端點撈出的dns cache資料，兩個好處，1.ip容易浮動的，單純紀錄ip連線，日後容易出現不確定當時是哪台裝置 2. ip是基於什麼名稱解析連線的，是直接連向惡意C2、compromised botnet，還是遭到毒化
+- 0:56 **EX1**，我連到被標為惡意C2的IP，是什麼名稱解析過去的，從記錄看，也許不需要？
+- 1:09 **EX2**，我連到被標為惡意C2的IP，是什麼名稱解析過去的，從記錄看，也許可以？
+- 1:17 顯示3個手動maintain資料，手動白名單放了3個dns-server，手動黑名單放了幾個可能惡意C2、botnet，或是不需要的IP、Domain
+- 1:51 可以根據欄位排序(單純為了方便檢視)
+- 2:20 切回IP排序
+- 2:42 此外，還有做sysmon紀錄，可以查，這個dns request，是誰、在什麼時候發出的 (還在整合施工中)
+- 3:18 過往紀錄，可以使用flush衝到rotation中
+- 3:49 flush後，dns-master/white-master清空，手動maintain的名單保留
+### Part.2
+- 4:00~4:29 還沒連線使用，dns-cache什麼都沒撈到，過濾清單只根據其他手動maintain的清單產生
+- 5:14 只有dns-server被允許通過，其他都被擋下
+- 5:36 使用，dns cache開始有資料，全部記錄下來，再來管理員可以批審是否允許
+- 6:25 **EX1** 使用chrome連網chatgpt.com，dns cache資料全部紀錄，批審，可以覺得安全的允許，不安全的封鎖，不知道的跳過
+- 7:12 **EX2** 使用chrome連網virustotal.com，dns cache資料全部紀錄，批審，可以覺得安全的允許，不安全的封鎖，不知道的跳過
+- 8:18 **EX3** 檢視當前的連線，是什麼原因連過去的
+- 8:40 剛剛批審中，選擇block的，會被加進black-domain清單中
