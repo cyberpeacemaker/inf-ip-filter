@@ -109,3 +109,5 @@ This project develops an automated engine that monitors and validates **DNS Quer
 - 7:12 **EX2** 使用chrome連網virustotal.com，dns cache資料全部紀錄，批審，可以覺得安全的允許，不安全的封鎖，不知道的跳過
 - 8:18 **EX3** 檢視當前的連線，是什麼原因連過去的
 - 8:40 剛剛批審中，選擇block的，會被加進black-domain清單中
+
+add-mppreference

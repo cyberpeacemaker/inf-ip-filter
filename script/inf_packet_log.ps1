@@ -18,7 +18,7 @@ ipconfig /all | Out-File -FilePath "$env:USERPROFILE\Desktop\host_config.txt" -A
 # Captures traffic only for your MAC address, rotating ten 100MB files.
 # TODO: index, MAC, dst path
 & "C:\Program Files\Wireshark\tshark.exe" -D
-& "C:\Program Files\Wireshark\tshark.exe" -i 4 -f "ether host 34:6F:24:C9:FA:01" -b filesize:102400 -b files:10 -w "C:\Users\sinceremony\Documents\Forensic\2026-03-10\mycapture.pcapng"
+& "C:\Program Files\Wireshark\tshark.exe" -i 4 -p -f "ether host 34:6F:24:C9:FA:01" -b filesize:102400 -b files:10 -w "C:\Users\sinceremony\Documents\Forensic\2026-03-11\mycapture.pcapng"
 & "C:\Program Files\Wireshark\tshark.exe" -i 4 -f "ether host 34:6F:24:C9:FA:01" -b filesize:102400 -b files:10 -w "C:\Users\sinceremony\Documents\2026-03-09-wireshark\mycapture.pcapng"
 # * **Storage:** Periodically clear the `C:\logs` folder if you aren't using the ring buffer (`-b`) settings.
 
