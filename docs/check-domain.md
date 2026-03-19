@@ -9,6 +9,7 @@
     - - www.googletagmanager.com: web analytics and marketing tags.
 - sb.scprecardresearch.com: digital tracking and market research
 - clientstream.launchdarkly.com: identifies your session as a "Context" (e.g., "User #54321 on Chrome") to decide which features to show you.
+- bam.nr-data.net
 
 # privacy issue
 - Microsoft
