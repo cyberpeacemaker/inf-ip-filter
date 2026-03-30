@@ -7,9 +7,9 @@
 蒐集黑名單
 
 # script
-- sort data (ip-white-exclude, ip-white-mannual)
-- ip-black-mannual reason modify
 - dns-cache-ipconfig parser (psutil cmd command)
+- pcap auto
+- ip-black-mannual reason modify
 
 # analysis
 - extract distinguished domain name in dns-cache

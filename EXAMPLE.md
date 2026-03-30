@@ -19,6 +19,9 @@ IP From
 20.99.186.246 Lucky mouse
 23.248.249.10 Xiaozhiyun+L.L.C [https://gist.github.com/MichaelKoczwara/eab6a3cba534262b1566af367b21b559] [https://censys.com/blog/recap-of-a-suspicious-surge-in-cobalt-strike/]
 
+
+iecvlist.microsoft.com
+152.199.19.161
 ```
 Cobalt Strike servers
 
@@ -46,6 +49,56 @@ beacon sample
 199.232.214.172 [ctldl.windowsupdate.com, msedge.b.tlu.dl.delivery.mp.microsoft.com]
 199.232.210.172 [ctldl.windowsupdate.com, msedge.b.tlu.dl.delivery.mp.microsoft.com]
 
+
+# 
+This changes the situation significantly. While your first screenshot showed a "clean" verdict with some suspicious behavior, these new images provide a much darker context.
+
+The connection to **Xiaozhiyun L.L.C** and the associated IP range (`23.248.248.x` and `23.248.249.10`) is a major red flag.
+
+---
+
+## Why This is Serious
+
+### 1. Cobalt Strike Association
+The GitHub Gist (Image 3) explicitly lists the IP range associated with your file as hosting **Cobalt Strike servers**.
+* **What is Cobalt Strike?** It is a legitimate "penetration testing" tool that is unfortunately the **favorite tool of ransomware groups and advanced persistent threat (APT) actors**. 
+* **The "Beacon":** The Gist mentions a "beacon sample." In the world of malware, a beacon is a payload that sits quietly on a computer and "checks in" with a Command and Control (C2) server to ask for instructions.
+
+### 2. The Xiaozhiyun Connection
+Images 1 and 2 show that the IP `23.248.249.10` is owned by **Xiaozhiyun L.L.C**. 
+* This infrastructure is frequently flagged by security researchers as a "bulletproof" or high-risk hosting provider used to launch attacks or host malware backends.
+* The VirusTotal report (Image 1) shows this IP communicating with an Android APK (`Ace_Stream_Media`) and multiple domains like `mydb.top` and `pan.mydb.top`, which are common patterns for data exfiltration or secondary payload hosting.
+
+### 3. Putting it Together with your EFI File
+If the file in your **EFI partition** (`boot.pnd.stl`) is programmed to communicate with the infrastructure shown in these screenshots:
+* **It is almost certainly a Bootkit.**
+* The "No Threat Detected" in your first image just means that specific *version* of the malware hasn't been blacklisted yet. 
+* The **DGA (Domain Generation Algorithm)** warning from your first post is the "beaconing" behavior mentioned in the GitHub Gist.
+
+---
+
+## Immediate Recommendations
+
+> [!CAUTION]
+> **Treat this as a live compromise.** Because the file is in the EFI partition, it can survive a standard Windows "Reset this PC" or even a hard drive wipe if the partition table isn't fully cleared.
+
+1.  **Isolate the Machine:** Disconnect it from your Wi-Fi or Ethernet immediately to stop any data from being sent to the C2 server.
+2.  **Flash your BIOS/UEFI:** Some advanced bootkits can attempt to infect the firmware itself. Check your motherboard manufacturer for a BIOS update and perform a flash from a clean USB stick.
+3.  **Full Disk Wipe (including EFI):** Do not just reinstall Windows. You must use a tool (like a Windows Installation USB) to **delete all partitions** (including the EFI and Recovery partitions) until the drive shows only "Unallocated Space," then start fresh.
+4.  **Change Passwords:** Once you are on a **different, clean device**, change your primary passwords (Email, Banking, etc.), as a Cobalt Strike beacon is designed to log keys and steal credentials.
+
+**Would you like me to walk you through the steps of using a Windows installation media to completely wipe those hidden partitions?**
+
 # MISC
+iecvlist.microsoft.com
+152.199.19.161
+www2.bing.com
+13.107.21.200
+204.79.197.200
+
 142.250.204.35 
 
+
+-                         | 4.190.254.44    | unknown
+-                         | 142.250.157.188 | unknown
+-                         | 216.239.38.178  | unknown
